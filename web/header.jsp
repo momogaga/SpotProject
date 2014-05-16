@@ -11,9 +11,10 @@
                 </div>
 
                 <input type="hidden" name="action" value="logUser"/>  
-                <button type="submit" name="submit" class="btn btn-default">Connexion</button>  
+                <button type="submit" name="submit" class="btn btn-default">Connexion</button>
 
             </form>
+            
         </c:if>
         <c:if test="${login ne null}">
             <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">
@@ -27,5 +28,5 @@
     </div>
 
     <h3 class="text-muted">Gestionnaire d'utilisateurs</h3>
-    
+    <a href="#ajouter">Créer un compte</a>
 </div>
