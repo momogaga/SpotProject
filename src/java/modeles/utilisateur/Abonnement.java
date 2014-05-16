@@ -5,16 +5,52 @@
  */
 package modeles.utilisateur;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Bastien
  */
-public class Abonnement {
+@Entity
+public class Abonnement implements Serializable {
 
-    protected TypeAbonnement nom;
-    protected Date echeance;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    protected String nom;
     protected double prix;
+//    protected Date dateDebut;
+//   protected Date dateFin;
 
+    public Abonnement() {
+    }
+
+    public Abonnement(String nom, double prix) {
+        this.nom = nom;
+        this.prix = prix;
+//        this.dateDebut = dateDebut;
+//        this.dateFin = dateFin;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public double getPrix() {
+        return prix;
+    }
+
+//    public Date getDateDebut() {
+//        return dateDebut;
+//    }
+//
+//    public Date getDateFin() {
+//        return dateFin;
+//    }
 }

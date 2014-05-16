@@ -6,6 +6,7 @@
 package gestionnaires;
 
 import java.util.Collection;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,10 +28,32 @@ public class GestionnaireUtilisateurs {
 
     public void creerUtilisateursDeTest() {
 
+        Date oji = new Date();
+
+        System.out.println("date : " + oji);
+
+        Abonnement gratuit = new Abonnement("Gratuit", 0);
+        em.persist(gratuit);
+        Abonnement we = new Abonnement("Week-end", 3);
+        em.persist(we);
+        Abonnement semaine = new Abonnement("Semaine", 5);
+        em.persist(semaine);
+        Abonnement mois = new Abonnement("Mois", 10);
+        em.persist(mois);
+        Abonnement an = new Abonnement("An", 50);
+        em.persist(an);
+        Abonnement vie = new Abonnement("Vie", 300);
+        em.persist(vie);
+
+        creeUnUtilisateur("root", "root", an);
+        creeUnUtilisateur("root2", "root2", we);
+        creeUnUtilisateur("root3", "root3", semaine);
+
     }
 
     public Utilisateur creeUnUtilisateur(String login, String password, Abonnement abo) {
-        Utilisateur u = new Utilisateur(login, password, abo);
+        Utilisateur u = new Utilisateur(login, password);
+        u.setAbonnement(abo);
         em.persist(u);
         return u;
     }

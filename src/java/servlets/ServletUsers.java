@@ -100,7 +100,7 @@ public class ServletUsers extends HttpServlet {
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
             } else if (action.equals("creerUnUtilisateur")) {
-                gestionnaireUtilisateurs.creeUnUtilisateur(login, password, abo);
+                //  gestionnaireUtilisateurs.creeUnUtilisateur(login, password, abo);
                 if (request.getParameter("page") != null) {
                     page = Integer.parseInt(request.getParameter("page"));
                 }

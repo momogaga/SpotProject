@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -24,14 +25,22 @@ public class Utilisateur implements Serializable {
     private int id;
     private String login;
     private String password;
-    private Abonnement abo;
+    @OneToOne
+    private Abonnement abonnement;
+
+    public Abonnement getAbonnement() {
+        return abonnement;
+    }
+
+    public void setAbonnement(Abonnement abonnement) {
+        this.abonnement = abonnement;
+    }
 
     public Utilisateur() {
     }
 
-    public Utilisateur(String login, String password, Abonnement abo) {
+    public Utilisateur(String login, String password) {
         this.login = login;
-        this.abo = abo;
         this.password = this.encrypt(password);
     }
 
@@ -43,20 +52,10 @@ public class Utilisateur implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Get the value of login
-     *
-     * @return the value of login
-     */
     public String getLogin() {
         return login;
     }
 
-    /**
-     * Set the value of login
-     *
-     * @param login new value of login
-     */
     public void setLogin(String login) {
         this.login = login;
     }
