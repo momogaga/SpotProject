@@ -8,7 +8,7 @@ package utils;
 import javax.ejb.EJB;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import utilisateurs.gestionnaires.GestionnaireUtilisateurs;
+import gestionnaires.GestionnaireUtilisateurs;
 
 /**
  * Web application lifecycle listener.

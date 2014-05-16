@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilisateurs.modeles;
+package modeles.utilisateur;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -23,16 +23,15 @@ public class Utilisateur implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String login;
-    private String firstname;  
-    private String lastname;
     private String password;
+    private Abonnement abo;
+
     public Utilisateur() {
     }
 
-    public Utilisateur(String nom, String prenom, String login, String password) {
+    public Utilisateur(String login, String password, Abonnement abo) {
         this.login = login;
-        this.firstname = nom;
-        this.lastname = prenom;
+        this.abo = abo;
         this.password = this.encrypt(password);
     }
 
@@ -62,48 +61,14 @@ public class Utilisateur implements Serializable {
         this.login = login;
     }
 
-    /**
-     * Get the value of firstname
-     *
-     * @return the value of firstname
-     */
-    public String getFirstname() {
-        return firstname;
-    }
-
-    /**
-     * Set the value of firstname
-     *
-     * @param firstname new value of firstname
-     */
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    /**
-     * Get the value of lastname
-     *
-     * @return the value of lastname
-     */
-    public String getLastname() {
-        return lastname;
-    }
-
-    /**
-     * Set the value of lastname
-     *
-     * @param lastname new value of lastname
-     */
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-  public String getPassword() {
+    public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -123,15 +88,16 @@ public class Utilisateur implements Serializable {
         }
         return true;
     }
-    public String encrypt(String password){
-        String crypte="";
-        for (int i=0; i<password.length();i++)  {
-            int c=password.charAt(i)^48;  
-            crypte=crypte+(char)c; 
+
+    public String encrypt(String password) {
+        String crypte = "";
+        for (int i = 0; i < password.length(); i++) {
+            int c = password.charAt(i) ^ 48;
+            crypte = crypte + (char) c;
         }
         return crypte;
     }
-    
+
     @Override
     public String toString() {
         return "utilisateurs.modeles.Utilisateur[ id=" + id + " ]";

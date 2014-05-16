@@ -25,8 +25,8 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import utilisateurs.gestionnaires.GestionnaireUtilisateurs;
-import utilisateurs.modeles.Utilisateur;
+import gestionnaires.GestionnaireUtilisateurs;
+import modeles.utilisateur.Utilisateur;
 
 /**
  *
@@ -70,7 +70,7 @@ public class FileUpload extends HttpServlet {
 
         while ((nextLine = reader.readNext()) != null) {
             // nextLine[] is an array of values from the line
-            gestionnaireUtilisateurs.creeUnUtilisateur(nextLine[0], nextLine[1], nextLine[2], nextLine[3]);
+            // gestionnaireUtilisateurs.creeUnUtilisateur(nextLine[0], nextLine[1], nextLine[2], nextLine[3]);
         }
     }    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 

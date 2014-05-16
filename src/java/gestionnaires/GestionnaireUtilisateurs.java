@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilisateurs.gestionnaires;
+package gestionnaires;
 
 import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import utilisateurs.modeles.Utilisateur;
+import modeles.utilisateur.Abonnement;
+import modeles.utilisateur.Utilisateur;
 
 /**
  *
@@ -25,14 +26,11 @@ public class GestionnaireUtilisateurs {
     private EntityManager em;
 
     public void creerUtilisateursDeTest() {
-        creeUnUtilisateur("John", "Lennon", "jlennon", "root");
-        creeUnUtilisateur("Paul", "Mac Cartney", "pmc", "root");
-        creeUnUtilisateur("Ringo", "Starr", "rstarr", "root");
-        creeUnUtilisateur("Georges", "Harisson", "georgesH", "root");
+
     }
 
-    public Utilisateur creeUnUtilisateur(String nom, String prenom, String login, String password) {
-        Utilisateur u = new Utilisateur(nom, prenom, login, password);
+    public Utilisateur creeUnUtilisateur(String login, String password, Abonnement abo) {
+        Utilisateur u = new Utilisateur(login, password, abo);
         em.persist(u);
         return u;
     }
@@ -53,8 +51,6 @@ public class GestionnaireUtilisateurs {
     public void modifieUnUtilisateur(String nom, String prenom, String login, String password) {
         Utilisateur u = chercherUnUtilisateurParLogin(login);
         u.setLogin(login);
-        u.setFirstname(prenom);
-        u.setLastname(nom);
         String CryptedPass = this.encrypt(password);
         u.setPassword(CryptedPass);
     }

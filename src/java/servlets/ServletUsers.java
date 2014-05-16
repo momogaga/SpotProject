@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import utilisateurs.gestionnaires.GestionnaireUtilisateurs;
-import utilisateurs.modeles.Utilisateur;
+import gestionnaires.GestionnaireUtilisateurs;
+import modeles.utilisateur.Utilisateur;
 
 /**
  *
@@ -39,11 +39,10 @@ public class ServletUsers extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    public void affiche(){
-        
+    public void affiche() {
+
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Pratique pour décider de l'action à faire  
@@ -60,13 +59,12 @@ public class ServletUsers extends HttpServlet {
         int elementsParPage = 10;
 
         if (action != null) {
-            if(action.equals("listerLeUtilisateur")){
+            if (action.equals("listerLeUtilisateur")) {
                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                 request.setAttribute("listeDesUsers", liste);
                 forwardTo = "index.jsp?action=listerLeUtilisateur";
                 message = "Affiche un utilisateurs";
-            }            
-            else if (action.equals("listerLesUtilisateurs")) {
+            } else if (action.equals("listerLesUtilisateurs")) {
                 if (request.getParameter("page") != null) {
                     page = Integer.parseInt(request.getParameter("page"));
                 }
@@ -102,7 +100,7 @@ public class ServletUsers extends HttpServlet {
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
             } else if (action.equals("creerUnUtilisateur")) {
-                gestionnaireUtilisateurs.creeUnUtilisateur(nom, prenom, login, password);
+                gestionnaireUtilisateurs.creeUnUtilisateur(login, password, abo);
                 if (request.getParameter("page") != null) {
                     page = Integer.parseInt(request.getParameter("page"));
                 }
