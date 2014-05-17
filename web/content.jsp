@@ -51,9 +51,6 @@
                                                 <td>${u.login}</td>
                                                 <td>${u.lastname}</td> 
                                                 <td>${u.firstname}</td>                                            
-
-                                                <td><input type="checkbox" value="${u.id}" name="id" id="check"/></td>
-                                                <!-- On compte le nombre de users -->  
                                                 <c:set var="total" value="${total+1}"/>  
                                             </tr>  
                                         </c:forEach>  
@@ -89,10 +86,6 @@
                                                 </c:if>  
                                         </ul>
                                     </div>
-                                    <br /><br />
-                                    <input type="hidden" name="action" value="supprimerUnUtilisateur"/> 
-                                    <button type="submit" name="submit" class="btn btn-danger" id="btn">Supprimer l'utilisateur</button> 
-
                                 </form>
                             </c:if>  
                         </div>           

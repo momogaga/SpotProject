@@ -29,7 +29,10 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js" ></script>
-
+        <script type="text/javascript">
+            $('#myCompte').modal(options);
+            $('#myConnect').modal(options);
+        </script>
         <script type="text/javascript">
             $('#myTab a').click(function(e) {
                 e.preventDefault()

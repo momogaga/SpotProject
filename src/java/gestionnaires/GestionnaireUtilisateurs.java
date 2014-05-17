@@ -26,34 +26,23 @@ public class GestionnaireUtilisateurs {
     @PersistenceContext
     private EntityManager em;
 
+    String abonnement = "Gratuit";
+
     public void creerUtilisateursDeTest() {
+        creeUnUtilisateur("root", "root");
+        creeUnUtilisateur("admin", "admin");
+        creeUnUtilisateur("test", "test");
 
-        Date oji = new Date();
-
-        System.out.println("date : " + oji);
-
-        Abonnement gratuit = new Abonnement("Gratuit", 0);
-        em.persist(gratuit);
-        Abonnement we = new Abonnement("Week-end", 3);
-        em.persist(we);
-        Abonnement semaine = new Abonnement("Semaine", 5);
-        em.persist(semaine);
-        Abonnement mois = new Abonnement("Mois", 10);
-        em.persist(mois);
-        Abonnement an = new Abonnement("An", 50);
-        em.persist(an);
-        Abonnement vie = new Abonnement("Vie", 300);
-        em.persist(vie);
-
-        creeUnUtilisateur("root", "root", an);
-        creeUnUtilisateur("root2", "root2", we);
-        creeUnUtilisateur("root3", "root3", semaine);
-
+        modifierAbonnement("Semaine", "test");        
     }
 
-    public Utilisateur creeUnUtilisateur(String login, String password, Abonnement abo) {
+    public Utilisateur creeUnUtilisateur(String login, String password) {
         Utilisateur u = new Utilisateur(login, password);
-        u.setAbonnement(abo);
+
+        Abonnement gratuit = new Abonnement("Gratuit", 0);
+        u.setAbonnement(gratuit);
+        em.persist(gratuit);
+
         em.persist(u);
         return u;
     }
@@ -76,6 +65,31 @@ public class GestionnaireUtilisateurs {
         u.setLogin(login);
         String CryptedPass = this.encrypt(password);
         u.setPassword(CryptedPass);
+    }
+
+    public void modifierAbonnement(String nomAbonnement, String login) {
+        Utilisateur u = chercherUnUtilisateurParLogin(login);
+        Abonnement abo = null;
+
+        switch (nomAbonnement) {
+            case ("Week-end"):
+                abo = new Abonnement(nomAbonnement, 3);
+                u.setAbonnement(abo);
+                em.persist(abo);
+                break;
+            case ("Semaine"):
+                abo = new Abonnement(nomAbonnement, 5);
+                u.setAbonnement(abo);
+                em.persist(abo);
+                break;
+            case ("Mois"):
+                abo = new Abonnement(nomAbonnement, 15);
+                u.setAbonnement(abo);
+                em.persist(abo);
+                break;
+            default:
+                break;
+        }
     }
 
     public void supprimeUnUtilisateur(int id) {

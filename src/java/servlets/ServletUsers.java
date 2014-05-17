@@ -39,10 +39,6 @@ public class ServletUsers extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public void affiche() {
-
-    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Pratique pour décider de l'action à faire  
@@ -51,116 +47,20 @@ public class ServletUsers extends HttpServlet {
         String message = "";
 
         String login = request.getParameter("login");
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
         String password = request.getParameter("password");
-
-        int page = 1;
-        int elementsParPage = 10;
-
+        String abonnement = request.getParameter("abonnement");
+        
         if (action != null) {
-            if (action.equals("listerLeUtilisateur")) {
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
-                request.setAttribute("listeDesUsers", liste);
-                forwardTo = "index.jsp?action=listerLeUtilisateur";
-                message = "Affiche un utilisateurs";
-            } else if (action.equals("listerLesUtilisateurs")) {
-                if (request.getParameter("page") != null) {
-                    page = Integer.parseInt(request.getParameter("page"));
-                }
+            if (action.equals("creerUtilisateursDeTest")) {
+                gestionnaireUtilisateurs.creerUtilisateursDeTest();             
 
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers((page - 1) * elementsParPage,
-                        elementsParPage);
-
-                int elements = gestionnaireUtilisateurs.getElements();
-                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
-
-                request.setAttribute("listeDesUsers", liste);
-                request.setAttribute("noOfPages", numPage);
-                request.setAttribute("currentPage", page);
-
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                message = "Liste des utilisateurs";
-            } else if (action.equals("creerUtilisateursDeTest")) {
-                gestionnaireUtilisateurs.creerUtilisateursDeTest();
-                if (request.getParameter("page") != null) {
-                    page = Integer.parseInt(request.getParameter("page"));
-                }
-
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers((page - 1) * elementsParPage,
-                        elementsParPage);
-
-                int elements = gestionnaireUtilisateurs.getElements();
-                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
-
-                request.setAttribute("listeDesUsers", liste);
-                request.setAttribute("noOfPages", numPage);
-                request.setAttribute("currentPage", page);
-
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                forwardTo = "index.jsp";
                 message = "Liste des utilisateurs";
             } else if (action.equals("creerUnUtilisateur")) {
-                //  gestionnaireUtilisateurs.creeUnUtilisateur(login, password, abo);
-                if (request.getParameter("page") != null) {
-                    page = Integer.parseInt(request.getParameter("page"));
-                }
-
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers((page - 1) * elementsParPage,
-                        elementsParPage);
-
-                int elements = gestionnaireUtilisateurs.getElements();
-                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
-
-                request.setAttribute("listeDesUsers", liste);
-                request.setAttribute("noOfPages", numPage);
-                request.setAttribute("currentPage", page);
-
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                gestionnaireUtilisateurs.creeUnUtilisateur(login, password);
+                forwardTo = "index.jsp?";
                 message = "Liste des utilisateurs";
-            } else if (action.equals("chercherParLogin")) {
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.chercherParLogin(login);
-                request.setAttribute("listeDesUsers", liste);
-                forwardTo = "index.jsp?action=listerLeUtilisateur";
-                message = "Liste des utilisateurs par login";
-            } else if (action.equals("modifierUnUtilisateur")) {
-                gestionnaireUtilisateurs.modifieUnUtilisateur(nom, prenom, login, password);
-                if (request.getParameter("page") != null) {
-                    page = Integer.parseInt(request.getParameter("page"));
-                }
 
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers((page - 1) * elementsParPage,
-                        elementsParPage);
-
-                int elements = gestionnaireUtilisateurs.getElements();
-                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
-
-                request.setAttribute("listeDesUsers", liste);
-                request.setAttribute("noOfPages", numPage);
-                request.setAttribute("currentPage", page);
-
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                message = "Liste des utilisateurs";
-            } else if (action.equals("supprimerUnUtilisateur")) {
-                String[] check = request.getParameterValues("id");
-                for (int i = 0; i < check.length; i++) {
-                    gestionnaireUtilisateurs.supprimeUnUtilisateur(Integer.parseInt(check[i]));
-                }
-                if (request.getParameter("page") != null) {
-                    page = Integer.parseInt(request.getParameter("page"));
-                }
-
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers((page - 1) * elementsParPage,
-                        elementsParPage);
-
-                int elements = gestionnaireUtilisateurs.getElements();
-                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
-
-                request.setAttribute("listeDesUsers", liste);
-                request.setAttribute("noOfPages", numPage);
-                request.setAttribute("currentPage", page);
-
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                message = "Liste des utilisateurs";
             } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";

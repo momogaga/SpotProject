@@ -1,20 +1,70 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="header">
-    <div>        
+    <div>  
         <c:if test="${empty login}">
-            <form action="SessionLogin" method="post" class="navbar-form navbar-right" role="form">
-                <div class="form-group">
-                    <input type="text" placeholder="Login" class="form-control" name="log" required="true">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" name="pass" required="true">
-                </div>
+            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myConnect">Connectez-vous</button> 
+            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myCompte">Créer un compte</button>
 
-                <input type="hidden" name="action" value="logUser"/>  
-                <button type="submit" name="submit" class="btn btn-default">Connexion</button>
+            <div class="modal fade" id="myConnect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
 
-            </form>
-            
+                            <form action="SessionLogin" method="post" class="navbar-form" role="form">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Login" class="form-control" name="log" required="true">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" placeholder="Password" class="form-control" name="pass" required="true">
+                                </div>
+
+                                <input type="hidden" name="action" value="logUser"/>  
+                                <button type="submit" name="submit" class="btn btn-default">Connexion</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myCompte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+
+                            <form class="form-horizontal" action="ServletUsers" method="get">
+                                <fieldset>
+
+                                    <legend>Créer un compte</legend>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="login">Login :</label>  
+                                        <div class="col-md-4">
+                                            <input id="login" name="login" type="text" placeholder="" class="form-control input-md" required="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="password">Password :</label>  
+                                        <div class="col-md-4">
+                                            <input id="password" name="password" type="text" placeholder="" class="form-control input-md" required="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">  
+                                            <input type="hidden" name="action" value="creerUnUtilisateur"/> 
+                                            <button type="submit" name="submit"  class="btn btn-info">Créer mon compte</button>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </c:if>
         <c:if test="${login ne null}">
             <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">
@@ -27,6 +77,5 @@
 
     </div>
 
-    <h3 class="text-muted">Gestionnaire d'utilisateurs</h3>
-    <a href="#ajouter">Créer un compte</a>
+    <h3 class="text-muted">Gestionnaire de musiques</h3>
 </div>
