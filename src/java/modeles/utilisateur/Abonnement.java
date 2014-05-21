@@ -23,10 +23,10 @@ public class Abonnement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    protected String nom;
-    protected double prix;
-//    protected Date dateDebut;
-//   protected Date dateFin;
+    private String nom;
+    private double prix;
+//   private Date dateDebut;
+//   private Date dateFin;
 
     public Abonnement() {
     }

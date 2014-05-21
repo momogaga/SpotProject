@@ -28,28 +28,12 @@ public class Utilisateur implements Serializable {
     @OneToOne
     private Abonnement abonnement;
 
-    public Abonnement getAbonnement() {
-        return abonnement;
-    }
-
-    public void setAbonnement(Abonnement abonnement) {
-        this.abonnement = abonnement;
-    }
-
     public Utilisateur() {
     }
 
     public Utilisateur(String login, String password) {
         this.login = login;
         this.password = this.encrypt(password);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getLogin() {
@@ -66,6 +50,14 @@ public class Utilisateur implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Abonnement getAbonnement() {
+        return abonnement;
+    }
+
+    public void setAbonnement(Abonnement abonnement) {
+        this.abonnement = abonnement;
     }
 
     @Override

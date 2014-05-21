@@ -5,6 +5,7 @@
  */
 package utils;
 
+import gestionnaires.GestionnaireMusiques;
 import javax.ejb.EJB;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -19,11 +20,14 @@ public class CreationBD implements ServletContextListener {
 
     @EJB
     GestionnaireUtilisateurs gu;
+    @EJB
+    GestionnaireMusiques gm; 
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Déploiement terminé, BD Crée");
         gu.creerUtilisateursDeTest();
+        gm.creerMorceauDeTest();
     }
 
     @Override

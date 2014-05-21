@@ -26,17 +26,15 @@ public class GestionnaireUtilisateurs {
     @PersistenceContext
     private EntityManager em;
 
-    String abonnement = "Gratuit";
-
     public void creerUtilisateursDeTest() {
-        creeUnUtilisateur("root", "root");
-        creeUnUtilisateur("admin", "admin");
-        creeUnUtilisateur("test", "test");
+        creerUnUtilisateur("root", "root");
+        creerUnUtilisateur("admin", "admin");
+        creerUnUtilisateur("test", "test");
 
         modifierAbonnement("Semaine", "test");        
     }
 
-    public Utilisateur creeUnUtilisateur(String login, String password) {
+    public Utilisateur creerUnUtilisateur(String login, String password) {
         Utilisateur u = new Utilisateur(login, password);
 
         Abonnement gratuit = new Abonnement("Gratuit", 0);

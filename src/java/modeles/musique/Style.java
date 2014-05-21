@@ -5,19 +5,34 @@
  */
 package modeles.musique;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author Bastien
  */
-public enum Style {
 
-    ROCK("Rock"),
-    REGGAE("Reggae"),
-    HOUSE("House");
+@Entity
+public class Style implements Serializable {
 
     private String name = "";
+    @Id
+    private int id;
 
-    Style(String name) {
+    public Style() {
+    }
+
+    public Style(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
