@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import modeles.musique.Artiste;
 import modeles.musique.Morceau;
+import modeles.musique.Piste;
 
 /**
  *
@@ -30,13 +31,28 @@ public class GestionnaireMusiques {
         Artiste a = new Artiste("ACDC");
         Morceau m = new Morceau("High", "2014");
         Morceau mr = new Morceau("Well", "2014");
+        Piste p1 = new Piste("Bass", 5);
+        Piste p2 = new Piste("Vocals 2 Main", 3);
+        Piste p3 = new Piste("Drums 4 snare", 5);
+        Piste p4 = new Piste("Misc Bells", 2);
+        Piste p5 = new Piste("Bass2", 5);
 
-        em.persist(m);
-        em.persist(mr);
+        em.persist(p1);
+        em.persist(p2);
+        em.persist(p3);
+        em.persist(p4);
+        em.persist(p5);
 
         a.addMorceau(m);
         a.addMorceau(mr);
+        m.addPiste(p1);
+        m.addPiste(p2);
+        m.addPiste(p3);
+        mr.addPiste(p4);
+        mr.addPiste(p5);
 
+        em.persist(m);
+        em.persist(mr);
         em.persist(a);
     }
 

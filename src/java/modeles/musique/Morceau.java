@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -29,8 +30,8 @@ public class Morceau implements Serializable {
 
     private String titre;
     private String annee;
-//    @OneToMany
-//    private Set<Piste> pistes;
+    @OneToMany
+    private Set<Piste> pistes;
 
     public Morceau() {
     }
@@ -38,7 +39,7 @@ public class Morceau implements Serializable {
     public Morceau(String titre, String annee) {
         this.titre = titre;
         this.annee = annee;
-//        this.pistes = new HashSet();
+        this.pistes = new HashSet();
     }
 
     public String getTitre() {
@@ -57,11 +58,15 @@ public class Morceau implements Serializable {
         this.annee = annee;
     }
 
-//    public Set<Piste> getPistes() {
-//        return pistes;
-//    }
-//
-//    public void setPistes(Set<Piste> pistes) {
-//        this.pistes = pistes;
-//    }
+    public Set<Piste> getPistes() {
+        return pistes;
+    }
+
+    public void setPistes(Set<Piste> pistes) {
+        this.pistes = pistes;
+    }
+
+    public void addPiste(Piste p) {
+        this.pistes.add(p);
+    }
 }
