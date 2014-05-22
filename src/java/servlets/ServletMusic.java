@@ -113,12 +113,7 @@ public class ServletMusic extends HttpServlet {
                 request.setAttribute("currentPage", page);
 
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                message = "Liste des utilisateurs";
-            } else if (action.equals("chercherParLogin")) {
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.chercherParLogin(login);
-                request.setAttribute("listeDesUsers", liste);
-                forwardTo = "index.jsp?action=listerLeUtilisateur";
-                message = "Liste des utilisateurs par login";    
+                message = "Liste des utilisateurs";   
             } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";

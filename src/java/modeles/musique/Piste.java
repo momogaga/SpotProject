@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modeles.utilisateur;
+package modeles.musique;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -11,49 +11,46 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 /**
  *
  * @author Bastien
  */
-@Entity
-public class Abonnement implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+@Entity
+public class Piste implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private String nom;
-    private double prix;
-    private int duree;
+    private String difficulte;
     
-    public Abonnement() {
+    private Morceau morceau;
+
+    public Piste() {
     }
 
-    public Abonnement(String nom, double prix, int duree) {
+    public Piste(String nom, String difficulte) {
         this.nom = nom;
-        this.prix = prix;
-        this.duree = duree;
+        this.difficulte = difficulte;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-       
     public String getNom() {
         return nom;
     }
 
-    public double getPrix() {
-        return prix;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public int getDuree() {
-        return duree;
-    } 
+    public String getDifficulte() {
+        return difficulte;
+    }
+
+    public void setDifficulte(String difficulte) {
+        this.difficulte = difficulte;
+    }
+
     
 }

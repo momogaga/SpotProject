@@ -27,7 +27,7 @@ public class CreationBD implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Déploiement terminé, BD Crée");
         gu.creerUtilisateursDeTest();
-        gm.creerMorceauDeTest();
+        //gm.creerMusiqueTest();
     }
 
     @Override

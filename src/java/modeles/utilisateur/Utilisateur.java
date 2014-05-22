@@ -25,6 +25,7 @@ public class Utilisateur implements Serializable {
     private int id;
     private String login;
     private String password;
+    
     @OneToOne
     private Abonnement abonnement;
 
@@ -34,8 +35,17 @@ public class Utilisateur implements Serializable {
     public Utilisateur(String login, String password) {
         this.login = login;
         this.password = this.encrypt(password);
+        this.abonnement = new Abonnement();
     }
 
+    public Abonnement getAbonnement() {
+        return abonnement;
+    }
+
+    public void setAbonnement(Abonnement abonnement) {
+        this.abonnement = abonnement;
+    }
+    
     public String getLogin() {
         return login;
     }
@@ -50,14 +60,6 @@ public class Utilisateur implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Abonnement getAbonnement() {
-        return abonnement;
-    }
-
-    public void setAbonnement(Abonnement abonnement) {
-        this.abonnement = abonnement;
     }
 
     @Override

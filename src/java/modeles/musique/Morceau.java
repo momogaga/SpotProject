@@ -8,7 +8,9 @@ package modeles.musique;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,16 +30,11 @@ public class Morceau implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    
+
     private String titre;
-    
-    @OneToOne
-    private Artiste artiste;
-    @OneToOne
-    private Style style;
     private String annee;
     @OneToMany
-    private Collection<Instrument> instru;
+    private Set<Piste> pistes;
 
     public Morceau() {
     }
@@ -45,6 +42,7 @@ public class Morceau implements Serializable {
     public Morceau(String titre, String annee) {
         this.titre = titre;
         this.annee = annee;
+        this.pistes = new HashSet() ;
     }
 
     public String getTitre() {
@@ -55,22 +53,6 @@ public class Morceau implements Serializable {
         this.titre = titre;
     }
 
-    public Artiste getArtiste() {
-        return artiste;
-    }
-
-    public void setArtiste(Artiste artiste) {
-        this.artiste = artiste;
-    }
-
-    public Style getStyle() {
-        return style;
-    }
-
-    public void setStyle(Style style) {
-        this.style = style;
-    }
-
     public String getAnnee() {
         return annee;
     }
@@ -78,7 +60,12 @@ public class Morceau implements Serializable {
     public void setAnnee(String annee) {
         this.annee = annee;
     }
-    
-    
-    
+
+    public Set<Piste> getPistes() {
+        return pistes;
+    }
+
+    public void setPistes(Set<Piste> pistes) {
+        this.pistes = pistes;
+    }
 }

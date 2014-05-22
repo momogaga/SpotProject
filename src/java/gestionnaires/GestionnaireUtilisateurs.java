@@ -6,7 +6,8 @@
 package gestionnaires;
 
 import java.util.Collection;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,28 +28,29 @@ public class GestionnaireUtilisateurs {
     private EntityManager em;
 
     public void creerUtilisateursDeTest() {
-        creerUnUtilisateur("root", "root");
-        creerUnUtilisateur("admin", "admin");
-        creerUnUtilisateur("test", "test");
+        Utilisateur root = creerUtilisateur("root", "root");
+        Utilisateur admin = creerUtilisateur("admin", "admin");
+        Utilisateur test = creerUtilisateur("test", "test");
 
-        modifierAbonnement("Semaine", "test");        
+        Abonnement we = new Abonnement("Week-end", 3, 2);
+
+        Abonnement semaine = new Abonnement("Semaine", 5, 7);
+
+        root.setAbonnement(we);
+        em.merge(root);
+        
+        root.setAbonnement(semaine);
+        em.merge(root);
+
     }
 
-    public Utilisateur creerUnUtilisateur(String login, String password) {
+    public Utilisateur creerUtilisateur(String login, String password) {
         Utilisateur u = new Utilisateur(login, password);
-
-        Abonnement gratuit = new Abonnement("Gratuit", 0);
-        u.setAbonnement(gratuit);
+        Abonnement gratuit = new Abonnement("Gratuit", 0, 0);
         em.persist(gratuit);
-
+        u.setAbonnement(gratuit);
         em.persist(u);
         return u;
-    }
-
-    public Collection<Utilisateur> chercherParLogin(String login) {
-        Query q = em.createQuery("select u from Utilisateur u where u.login=:login");
-        q.setParameter("login", login);
-        return q.getResultList();
     }
 
     public Utilisateur chercherUnUtilisateurParLogin(String login) {
@@ -58,36 +60,29 @@ public class GestionnaireUtilisateurs {
         return u;
     }
 
-    public void modifieUnUtilisateur(String nom, String prenom, String login, String password) {
-        Utilisateur u = chercherUnUtilisateurParLogin(login);
-        u.setLogin(login);
-        String CryptedPass = this.encrypt(password);
-        u.setPassword(CryptedPass);
-    }
-
     public void modifierAbonnement(String nomAbonnement, String login) {
         Utilisateur u = chercherUnUtilisateurParLogin(login);
         Abonnement abo = null;
 
-        switch (nomAbonnement) {
-            case ("Week-end"):
-                abo = new Abonnement(nomAbonnement, 3);
-                u.setAbonnement(abo);
-                em.persist(abo);
-                break;
-            case ("Semaine"):
-                abo = new Abonnement(nomAbonnement, 5);
-                u.setAbonnement(abo);
-                em.persist(abo);
-                break;
-            case ("Mois"):
-                abo = new Abonnement(nomAbonnement, 15);
-                u.setAbonnement(abo);
-                em.persist(abo);
-                break;
-            default:
-                break;
-        }
+//        switch (nomAbonnement) {
+//            case ("Week-end"):
+//                abo = new Abonnement(nomAbonnement, 3);
+//                u.setAbonnement(abo);
+//                em.persist(abo);
+//                break;
+//            case ("Semaine"):
+//                abo = new Abonnement(nomAbonnement, 5);
+//                u.setAbonnement(abo);
+//                em.persist(abo);
+//                break;
+//            case ("Mois"):
+//                abo = new Abonnement(nomAbonnement, 15);
+//                u.setAbonnement(abo);
+//                em.persist(abo);
+//                break;
+//            default:
+//                break;
+//        }
     }
 
     public void supprimeUnUtilisateur(int id) {
@@ -141,4 +136,5 @@ public class GestionnaireUtilisateurs {
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
 }

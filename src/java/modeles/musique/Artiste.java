@@ -6,10 +6,13 @@
 package modeles.musique;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -21,13 +24,17 @@ public class Artiste implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String nom;
+    private String nom;   
+    
+    @OneToMany
+    private Set<Morceau> morceaux;
 
     public Artiste() {
     }
 
     public Artiste(String nom) {
         this.nom = nom;
+        this.morceaux = new HashSet<Morceau>();
     }
 
     public String getNom() {
@@ -38,4 +45,11 @@ public class Artiste implements Serializable {
         this.nom = nom;
     }
 
+    public Set<Morceau> getMorceaux() {
+        return morceaux;
+    }
+
+    public void setMorceaux(Morceau morceau) {
+        this.morceaux.add(morceau);
+    }
 }

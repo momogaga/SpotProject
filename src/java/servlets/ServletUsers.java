@@ -57,7 +57,7 @@ public class ServletUsers extends HttpServlet {
                 forwardTo = "index.jsp";
                 message = "Liste des utilisateurs";
             } else if (action.equals("creerUnUtilisateur")) {
-                gestionnaireUtilisateurs.creerUnUtilisateur(login, password);
+                gestionnaireUtilisateurs.creerUtilisateur(login, password);
                 forwardTo = "index.jsp?";
                 message = "Liste des utilisateurs";
 
