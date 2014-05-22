@@ -21,11 +21,12 @@ import javax.persistence.OneToMany;
 @Entity
 public class Artiste implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String nom;   
-    
+    private String nom;
+
     @OneToMany
     private Set<Morceau> morceaux;
 
@@ -34,7 +35,7 @@ public class Artiste implements Serializable {
 
     public Artiste(String nom) {
         this.nom = nom;
-        this.morceaux = new HashSet<Morceau>();
+        this.morceaux = new HashSet();
     }
 
     public String getNom() {
@@ -49,7 +50,11 @@ public class Artiste implements Serializable {
         return morceaux;
     }
 
-    public void setMorceaux(Morceau morceau) {
-        this.morceaux.add(morceau);
+    public void setMorceaux(Set<Morceau> morceaux) {
+        this.morceaux = morceaux;
+    }
+
+    public void addMorceau(Morceau m) {
+        this.morceaux.add(m);
     }
 }

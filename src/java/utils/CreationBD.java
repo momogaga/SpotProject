@@ -21,13 +21,13 @@ public class CreationBD implements ServletContextListener {
     @EJB
     GestionnaireUtilisateurs gu;
     @EJB
-    GestionnaireMusiques gm; 
+    GestionnaireMusiques gm;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Déploiement terminé, BD Crée");
-        gu.creerUtilisateursDeTest();
-        //gm.creerMusiqueTest();
+        //gu.creerUtilisateursDeTest();
+        gm.creerMusiqueTest();
     }
 
     @Override

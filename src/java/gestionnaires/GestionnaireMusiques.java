@@ -9,10 +9,10 @@ import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import modeles.musique.Artiste;
-import modeles.musique.Piste;
 import modeles.musique.Morceau;
 
 /**
@@ -26,18 +26,18 @@ public class GestionnaireMusiques {
     private EntityManager em;
 
     public void creerMusiqueTest() {
-        Artiste a = new Artiste("Artiste");
 
-        Morceau m = new Morceau("Titre", "2014");
+        Artiste a = new Artiste("ACDC");
+        Morceau m = new Morceau("High", "2014");
+        Morceau mr = new Morceau("Well", "2014");
 
-        a.setMorceaux(m);
+        em.persist(m);
+        em.persist(mr);
 
-        Piste p = new Piste("nom", "facile");
+        a.addMorceau(m);
+        a.addMorceau(mr);
 
         em.persist(a);
-        em.persist(m);
-        em.persist(p);
-
     }
 
     public Collection<Artiste> chercherParArtiste(String artiste) {
@@ -53,11 +53,10 @@ public class GestionnaireMusiques {
         return a;
     }
 
-    public Piste creerPiste(String nom, String difficulte) {
-        Piste p = new Piste(nom, difficulte);
-        em.persist(p);
-
-        return p;
-    }
-
+//    public Piste creerPiste(String nom, String difficulte) {
+//        Piste p = new Piste(nom, difficulte);
+//        em.persist(p);
+//
+//        return p;
+//    }
 }
