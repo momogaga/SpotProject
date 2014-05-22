@@ -53,7 +53,7 @@
 
                                     <div class="form-group">
                                         <div class="col-md-4">  
-                                            <input type="hidden" name="action" value="creerUnUtilisateur"/> 
+                                            <input type="hidden" name="action" value="creerUtilisateur"/> 
                                             <button type="submit" name="submit"  class="btn btn-info">Créer mon compte</button>
                                         </div>
                                     </div>
@@ -67,14 +67,54 @@
 
         </c:if>
         <c:if test="${login ne null}">
+
+            <div class="form-group">
+                <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myGestion" style="margin-top: 8px;" >Modifier mon compte</button>
+            </div>
             <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">
                 <div class="form-group">
-                    <label>Bienvenue à ${login}</label>
-                    <button type="submit" name="submit" class="btn btn-default">Déconnexion</button></a>
+                    <label>Bienvenue à ${login} !</label>
+                    <button type="submit" name="submit" class="btn btn-default">Déconnexion</button>
                 </div>
             </form>
-        </c:if> 
 
+            <div class="modal fade" id="myGestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+
+                            <form class="form-horizontal" action="ServletUsers" method="get">
+                                <fieldset>
+
+                                    <legend>Modifier mon compte</legend>
+                                    <input type="hidden" id="login" name="login" value="${login}"/> 
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="abonnement">Abonnement :</label>
+                                        <div class="col-md-4">
+                                            <select id="abonnement" name="abonnement" class="form-control">
+                                                <option value="Week-end">Week-end</option>
+                                                <option value="Semaine">Semaine</option>
+                                                <option value="Mois">Mois</option>
+                                                <option value="An">An</option>
+                                                <option value="Vie">Vie</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">  
+                                            <input type="hidden" name="action" value="modifierUtilisateur"/> 
+                                            <button type="submit" name="submit"  class="btn btn-info">Modifier mon compte</button>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if> 
     </div>
 
     <h3 class="text-muted">Gestionnaire de musiques</h3>

@@ -49,18 +49,21 @@ public class ServletUsers extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         String abonnement = request.getParameter("abonnement");
-        
+
         if (action != null) {
             if (action.equals("creerUtilisateursDeTest")) {
-                gestionnaireUtilisateurs.creerUtilisateursDeTest();             
+                gestionnaireUtilisateurs.creerUtilisateursDeTest();
 
                 forwardTo = "index.jsp";
                 message = "Liste des utilisateurs";
-            } else if (action.equals("creerUnUtilisateur")) {
+            } else if (action.equals("creerUtilisateur")) {
                 gestionnaireUtilisateurs.creerUtilisateur(login, password);
                 forwardTo = "index.jsp?";
                 message = "Liste des utilisateurs";
-
+            } else if (action.equals("modifierUtilisateur")) {
+                gestionnaireUtilisateurs.modifierUtilisateur(login, abonnement);
+                forwardTo = "index.jsp?";
+                message = "Liste des utilisateurs";
             } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
@@ -70,7 +73,7 @@ public class ServletUsers extends HttpServlet {
         RequestDispatcher dp = request.getRequestDispatcher(forwardTo + "&message=" + message);
 
         dp.forward(request, response);
-        // Après un forward, plus rien ne peut être exécuté après !  
+    // Après un forward, plus rien ne peut être exécuté après !  
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

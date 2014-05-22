@@ -32,6 +32,7 @@
         <script type="text/javascript">
             $('#myCompte').modal(options);
             $('#myConnect').modal(options);
+            $('#myGestion').modal(options);
         </script>
         <script type="text/javascript">
             $('#myTab a').click(function(e) {

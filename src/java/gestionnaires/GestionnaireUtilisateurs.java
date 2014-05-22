@@ -38,7 +38,7 @@ public class GestionnaireUtilisateurs {
 
         root.setAbonnement(we);
         em.merge(root);
-        
+
         root.setAbonnement(semaine);
         em.merge(root);
 
@@ -60,29 +60,46 @@ public class GestionnaireUtilisateurs {
         return u;
     }
 
-    public void modifierAbonnement(String nomAbonnement, String login) {
+    public void modifierUtilisateur(String login, String nomAbonnement) {
         Utilisateur u = chercherUnUtilisateurParLogin(login);
-        Abonnement abo = null;
 
-//        switch (nomAbonnement) {
-//            case ("Week-end"):
-//                abo = new Abonnement(nomAbonnement, 3);
-//                u.setAbonnement(abo);
-//                em.persist(abo);
-//                break;
-//            case ("Semaine"):
-//                abo = new Abonnement(nomAbonnement, 5);
-//                u.setAbonnement(abo);
-//                em.persist(abo);
-//                break;
-//            case ("Mois"):
-//                abo = new Abonnement(nomAbonnement, 15);
-//                u.setAbonnement(abo);
-//                em.persist(abo);
-//                break;
-//            default:
-//                break;
-//        }
+        System.out.println("Login : " + u.getLogin() + "Pass : " + u.getPassword() + "Abo : " + nomAbonnement);
+        Abonnement abonnement = null;
+
+        switch (nomAbonnement) {
+            case ("Week-end"):
+                abonnement = new Abonnement(nomAbonnement, 3, 2);
+                em.persist(abonnement);
+                u.setAbonnement(abonnement);
+                em.merge(u);
+                break;
+            case ("Semaine"):
+                abonnement = new Abonnement(nomAbonnement, 5, 7);
+                em.persist(abonnement);
+                u.setAbonnement(abonnement);
+                em.merge(u);
+                break;
+            case ("Mois"):
+                abonnement = new Abonnement(nomAbonnement, 15, 30);
+                em.persist(abonnement);
+                u.setAbonnement(abonnement);
+                em.merge(u);
+                break;
+            case ("An"):
+                abonnement = new Abonnement(nomAbonnement, 45, 365);
+                em.persist(abonnement);
+                u.setAbonnement(abonnement);
+                em.merge(u);
+                break;
+            case ("Vie"):
+                abonnement = new Abonnement(nomAbonnement, 300, -1);
+                em.persist(abonnement);
+                u.setAbonnement(abonnement);
+                em.merge(u);
+                break;
+            default:
+                break;
+        }
     }
 
     public void supprimeUnUtilisateur(int id) {
@@ -134,7 +151,4 @@ public class GestionnaireUtilisateurs {
         }
         return crypte;
     }
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-
 }
