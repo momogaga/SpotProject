@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import modeles.musique.Artiste;
 import modeles.musique.Morceau;
 import modeles.musique.Piste;
+import modeles.utilisateur.Utilisateur;
 
 /**
  *
@@ -29,8 +30,11 @@ public class GestionnaireMusiques {
     public void creerMusiqueTest() {
 
         Artiste a = new Artiste("ACDC");
+        Artiste ab = new Artiste("Mors");
+        
         Morceau m = new Morceau("High", "2014");
         Morceau mr = new Morceau("Well", "2014");
+        
         Piste p1 = new Piste("Bass", 5);
         Piste p2 = new Piste("Vocals 2 Main", 3);
         Piste p3 = new Piste("Drums 4 snare", 5);
@@ -44,7 +48,7 @@ public class GestionnaireMusiques {
         em.persist(p5);
 
         a.addMorceau(m);
-        a.addMorceau(mr);
+        ab.addMorceau(mr);
         m.addPiste(p1);
         m.addPiste(p2);
         m.addPiste(p3);
@@ -54,12 +58,7 @@ public class GestionnaireMusiques {
         em.persist(m);
         em.persist(mr);
         em.persist(a);
-    }
-
-    public Collection<Artiste> chercherParArtiste(String artiste) {
-        Query q = em.createQuery("select u from Artiste u where u.artiste=:artiste");
-        q.setParameter("artiste", artiste);
-        return q.getResultList();
+        em.persist(ab);
     }
 
     public Artiste creerArtiste(String nom) {
@@ -69,10 +68,24 @@ public class GestionnaireMusiques {
         return a;
     }
 
-//    public Piste creerPiste(String nom, String difficulte) {
-//        Piste p = new Piste(nom, difficulte);
-//        em.persist(p);
-//
-//        return p;
-//    }
+    public Collection<Morceau> getAllMusic() {
+        // Exécution d'une requête équivalente à un select *
+        Query q = em.createQuery("select m from Morceau m");
+        return q.getResultList();
+    }
+
+    public Collection<Morceau> getAllMusic(int decalage, int elements) {
+        // Exécution d'une requête équivalente à un select *
+        Query q = em.createQuery("select m from Morceau m");
+
+        q.setFirstResult(decalage);
+        q.setMaxResults(elements);
+
+        return q.getResultList();
+    }
+
+    public int getElements() {
+        Query q = em.createQuery("select m from Morceau m");
+        return q.getResultList().size();
+    }
 }

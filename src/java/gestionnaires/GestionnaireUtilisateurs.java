@@ -109,27 +109,6 @@ public class GestionnaireUtilisateurs {
 
     }
 
-    public Collection<Utilisateur> getAllUsers() {
-        // Exécution d'une requête équivalente à un select *
-        Query q = em.createQuery("select u from Utilisateur u");
-        return q.getResultList();
-    }
-
-    public Collection<Utilisateur> getAllUsers(int decalage, int elements) {
-        // Exécution d'une requête équivalente à un select *
-        Query q = em.createQuery("select u from Utilisateur u");
-
-        q.setFirstResult(decalage);
-        q.setMaxResults(elements);
-
-        return q.getResultList();
-    }
-
-    public int getElements() {
-        Query q = em.createQuery("select u from Utilisateur u");
-        return q.getResultList().size();
-    }
-
     public Boolean isUser(String login, String password) {
         String passCrypte = this.encrypt(password);
         Query q = em.createQuery("select u from Utilisateur u where u.login=:login and u.password=:passCrypte");

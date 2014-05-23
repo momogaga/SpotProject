@@ -19,7 +19,7 @@ public class Parser {
 
     public static void main(String[] arg) throws FileNotFoundException, IOException {
         Parser p = new Parser();
-        p.parse(new FileInputStream("C:\\Users\\Bastien\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
+        p.parse(new FileInputStream(".\\web\\resources\\data\\liste.txt"));
     }
 
     public void parse(InputStream file) throws IOException {

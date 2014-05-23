@@ -35,12 +35,6 @@
             $('#myGestion').modal(options);
         </script>
         <script type="text/javascript">
-            $('#myTab a').click(function(e) {
-                e.preventDefault()
-                $(this).tab('show')
-            });
-        </script>
-        <script type="text/javascript">
             var checker = document.getElementById('check');
 
             var btn = document.getElementById('btn');

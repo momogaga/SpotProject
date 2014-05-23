@@ -5,9 +5,8 @@
  */
 package servlets;
 
+import gestionnaires.GestionnaireMusiques;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.Principal;
 import java.util.Collection;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -16,10 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import gestionnaires.GestionnaireUtilisateurs;
-import modeles.utilisateur.Utilisateur;
-
+import modeles.musique.Morceau;
 /**
  *
  * @author MoMo
@@ -28,7 +24,7 @@ import modeles.utilisateur.Utilisateur;
 public class ServletMusic extends HttpServlet {
 
     @EJB
-    private GestionnaireUtilisateurs gestionnaireUtilisateurs;
+    private GestionnaireMusiques gestionnaireMusiques;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,73 +43,28 @@ public class ServletMusic extends HttpServlet {
         String forwardTo = "";
         String message = "";
 
-        String login = request.getParameter("login");
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String password = request.getParameter("password");
-
         int page = 1;
-        int elementsParPage = 10;
+        int elementsParPage = 1;
 
         if (action != null) {
-            if (action.equals("listerLeUtilisateur")) {
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
-                request.setAttribute("listeDesUsers", liste);
-                forwardTo = "index.jsp?action=listerLeUtilisateur";
-                message = "Affiche un utilisateurs";
-            } else if (action.equals("listerLesUtilisateurs")) {
+            if (action.equals("listerMusic")) {
                 if (request.getParameter("page") != null) {
                     page = Integer.parseInt(request.getParameter("page"));
                 }
 
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers((page - 1) * elementsParPage,
+                Collection<Morceau> liste = gestionnaireMusiques.getAllMusic((page - 1) * elementsParPage,
                         elementsParPage);
 
-                int elements = gestionnaireUtilisateurs.getElements();
+                int elements = gestionnaireMusiques.getElements();
                 int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
 
-                request.setAttribute("listeDesUsers", liste);
+                request.setAttribute("listMusic", liste);
                 request.setAttribute("noOfPages", numPage);
                 request.setAttribute("currentPage", page);
 
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                message = "Liste des utilisateurs";
-            } else if (action.equals("creerUtilisateursDeTest")) {
-                gestionnaireUtilisateurs.creerUtilisateursDeTest();
-                if (request.getParameter("page") != null) {
-                    page = Integer.parseInt(request.getParameter("page"));
-                }
-
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers((page - 1) * elementsParPage,
-                        elementsParPage);
-
-                int elements = gestionnaireUtilisateurs.getElements();
-                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
-
-                request.setAttribute("listeDesUsers", liste);
-                request.setAttribute("noOfPages", numPage);
-                request.setAttribute("currentPage", page);
-
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                message = "Liste des utilisateurs";
-            } else if (action.equals("creerUnUtilisateur")) {
-                //  gestionnaireUtilisateurs.creeUnUtilisateur(login, password, abo);
-                if (request.getParameter("page") != null) {
-                    page = Integer.parseInt(request.getParameter("page"));
-                }
-
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers((page - 1) * elementsParPage,
-                        elementsParPage);
-
-                int elements = gestionnaireUtilisateurs.getElements();
-                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
-
-                request.setAttribute("listeDesUsers", liste);
-                request.setAttribute("noOfPages", numPage);
-                request.setAttribute("currentPage", page);
-
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                message = "Liste des utilisateurs";   
+                forwardTo = "index.jsp?action=listerMusic";
+                message = "Liste des musiques";
+              
             } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
