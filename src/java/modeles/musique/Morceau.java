@@ -11,11 +11,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -30,15 +32,20 @@ public class Morceau implements Serializable {
 
     private String titre;
     private String annee;
-    @OneToMany
+      
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Artiste artiste;
+    
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<Piste> pistes;
 
     public Morceau() {
     }
 
-    public Morceau(String titre, String annee) {
+    public Morceau(String titre, String annee, Artiste artiste) {
         this.titre = titre;
         this.annee = annee;
+        this.artiste = artiste;
         this.pistes = new HashSet();
     }
 
@@ -56,6 +63,14 @@ public class Morceau implements Serializable {
 
     public void setAnnee(String annee) {
         this.annee = annee;
+    }
+
+    public Artiste getArtiste() {
+        return artiste;
+    }
+
+    public void setArtiste(Artiste artiste) {
+        this.artiste = artiste;
     }
 
     public Set<Piste> getPistes() {

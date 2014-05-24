@@ -34,7 +34,8 @@
                             <tr> 
                                 <td></td>
                                 <td><b>Titre</b></td>  
-                                <td><b>Annee</b></td>                               
+                                <td><b>Annee</b></td> 
+                                <td><b>Artiste</b></td> 
                             </tr>  
 
                             <!-- Ici on affiche les lignes, une par utilisateur -->  
@@ -45,14 +46,21 @@
                                 <tr class="${status.index%2==0 ? 'alt' : ''}"> 
                                     <td><span class="glyphicon glyphicon-play-circle"</span></td>
                                     <td>${m.titre}</td> 
-                                    <td>${m.annee}</td>                                                                                           
+                                    <td>${m.annee}</td>
+                                    <td>${m.artiste.nom}</td>
+                                    <td>
+                                        <c:forEach var="p" items="${m.pistes}">
+                                            ${p.nom} <br >
+                                        </c:forEach>
+                                    </td> 
                                     <c:set var="total" value="${total+1}"/>  
                                 </tr>  
                             </c:forEach>  
 
                             <!-- Affichage du solde total dans la dernière ligne du tableau -->  
                             <tr>
-                                <td>Total :</td>
+                                <td><b>Total :</b></td>
+                                <td></td>
                                 <td></td>
                                 <td><b>${total}</b></td>
                             </tr>  

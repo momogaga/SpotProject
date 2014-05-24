@@ -6,10 +6,12 @@
 package modeles.musique;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -24,13 +26,17 @@ public class Piste implements Serializable {
 
     private String nom;
     private int difficulte;
+   
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Morceau morceau;
 
     public Piste() {
     }
 
-    public Piste(String nom, int difficulte) {
+    public Piste(String nom, int difficulte, Morceau morceau) {
         this.nom = nom;
         this.difficulte = difficulte;
+        this.morceau = morceau;
     }
 
     public String getNom() {

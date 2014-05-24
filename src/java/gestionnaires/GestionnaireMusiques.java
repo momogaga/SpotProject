@@ -32,14 +32,14 @@ public class GestionnaireMusiques {
         Artiste a = new Artiste("ACDC");
         Artiste ab = new Artiste("Mors");
         
-        Morceau m = new Morceau("High", "2014");
-        Morceau mr = new Morceau("Well", "2014");
+        Morceau m = new Morceau("High", "2014", a);
+        Morceau mr = new Morceau("Well", "2014", ab);
         
-        Piste p1 = new Piste("Bass", 5);
-        Piste p2 = new Piste("Vocals 2 Main", 3);
-        Piste p3 = new Piste("Drums 4 snare", 5);
-        Piste p4 = new Piste("Misc Bells", 2);
-        Piste p5 = new Piste("Bass2", 5);
+        Piste p1 = new Piste("Bass", 5, m);
+        Piste p2 = new Piste("Vocals 2 Main", 3, m);
+        Piste p3 = new Piste("Drums 4 snare", 5, m);
+        Piste p4 = new Piste("Misc Bells", 2, mr);
+        Piste p5 = new Piste("Bass2", 5, mr);
 
         em.persist(p1);
         em.persist(p2);

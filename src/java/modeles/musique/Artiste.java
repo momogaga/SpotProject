@@ -8,6 +8,7 @@ package modeles.musique;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class Artiste implements Serializable {
     private int id;
     private String nom;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<Morceau> morceaux;
 
     public Artiste() {
