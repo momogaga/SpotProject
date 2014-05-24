@@ -68,13 +68,13 @@ public class GestionnaireMusiques {
 
     public Collection<Morceau> getAllMusic() {
         // Exécution d'une requête équivalente à un select *
-        Query q = em.createQuery("select m from Morceau m");
+        Query q = em.createQuery("select m from Morceau m order by m.titre asc");
         return q.getResultList();
     }
 
     public Collection<Morceau> getAllMusic(int decalage, int elements) {
         // Exécution d'une requête équivalente à un select *
-        Query q = em.createQuery("select m from Morceau m");
+        Query q = em.createQuery("select m from Morceau m order by m.titre asc");
 
         q.setFirstResult(decalage);
         q.setMaxResults(elements);
@@ -106,12 +106,12 @@ public class GestionnaireMusiques {
 
                 a = new Artiste(items[0]);
 
-                m = new Morceau(items[1], "2014", a);
+                m = new Morceau(items[1].replace(":", ""), "2014", a);
                 a.addMorceau(m);
 
                 em.persist(a);
                 em.persist(m);
-            } else if (!Pattern.matches("^\\s*", ligne)) {
+            } else if (!Pattern.matches("^\\s*", ligne) && (ligne.contains(".mp3") || ligne.contains(".ogg") || ligne.contains(".mogg"))) {
                 p = new Piste(ligne, 5, m);
                 m.addPiste(p);
                 em.persist(p);
