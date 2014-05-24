@@ -46,7 +46,7 @@ public class Morceau implements Serializable {
         this.titre = titre;
         this.annee = annee;
         this.artiste = artiste;
-        this.pistes = new HashSet();
+        this.pistes = new HashSet<>();
     }
 
     public String getTitre() {
@@ -83,5 +83,10 @@ public class Morceau implements Serializable {
 
     public void addPiste(Piste p) {
         this.pistes.add(p);
+    }
+    
+    @Override
+    public String toString() {
+        return "Morceau : " + titre + "," + annee;
     }
 }

@@ -10,6 +10,9 @@ import javax.ejb.EJB;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import gestionnaires.GestionnaireUtilisateurs;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Web application lifecycle listener.
@@ -27,7 +30,14 @@ public class CreationBD implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Déploiement terminé, BD Crée");
         gu.creerUtilisateursDeTest();
-        gm.creerMusiqueTest();
+        //gm.creerMusiqueTest();
+        
+        try {
+            gm.parse();
+        } catch (IOException ex) {
+            Logger.getLogger(CreationBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override

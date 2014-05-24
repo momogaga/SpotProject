@@ -44,7 +44,7 @@ public class ServletMusic extends HttpServlet {
         String message = "";
 
         int page = 1;
-        int elementsParPage = 1;
+        int elementsParPage = 10;
 
         if (action != null) {
             if (action.equals("listerMusic")) {

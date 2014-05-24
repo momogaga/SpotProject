@@ -11,15 +11,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 import modeles.musique.Artiste;
 import modeles.musique.Morceau;
+import modeles.musique.Piste;
 
 public class Parser {
 
     public static void main(String[] arg) throws FileNotFoundException, IOException {
-        Parser p = new Parser();
-        p.parse(new FileInputStream(".\\web\\resources\\data\\liste.txt"));
+        Parser pars = new Parser();
+        pars.parse(new FileInputStream(".\\web\\resources\\data\\liste.txt"));
     }
 
     public void parse(InputStream file) throws IOException {
@@ -27,95 +30,37 @@ public class Parser {
         BufferedReader buff = new BufferedReader(lecture);
         String ligne;
 
+        Artiste a;
+        Morceau m = new Morceau();
+        Piste p;
+
+        Set<Piste> pistes;
+        pistes = new HashSet();
+
         Pattern tiretPattern = Pattern.compile("(\\s-\\s)");
 
         while ((ligne = buff.readLine()) != null) {
-            Artiste a;
-            Morceau m;
+
             if (!Pattern.matches("^.*\\.[0-9a-z]+$", ligne) && !Pattern.matches("^\\s*", ligne)) {
 
                 String[] items = tiretPattern.split(ligne);
+                a = new Artiste(items[0]);
+                m = new Morceau(items[1].replace(":", ""), "2001", a);
 
-                System.out.println("artiste :   " + items[0]);
-                System.out.println("morceau :   " + items[1]);
+                m.setPistes(pistes);
+                System.out.println(a.toString());
+                System.out.println(m.toString());
 
-            } else if (!Pattern.matches("^\\s*", ligne)) {
-                System.out.println("piste :   " + ligne);
+                System.out.println(m.getPistes().toString());
+                pistes = new HashSet();
+
+            } else if (!Pattern.matches("^\\s*", ligne) && !ligne.contains("mogg") && !ligne.contains("png")) {
+                p = new Piste(ligne, 3, m);
+                System.out.println(p.getNom());
+                pistes.add(p);
+
             }
         }
-    }
 
-//    public void parseMoi(GestionnaireMusiques gm) {
-//        String titre;
-//        Set<Morceau> Morceaux;
-//        Set<Piste> pistes;
-//        String nomInstru[];
-//        boolean ifTitle = true;
-//        pistes = new HashSet<>();
-//        titre = new String();
-//        pistes = new HashSet<>();
-//
-//        try {
-//            InputStream data = new FileInputStream("C:\\Users\\Bastien\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt");
-//            InputStreamReader lecture = new InputStreamReader(data);
-//            BufferedReader buff = new BufferedReader(lecture);
-//            String ligne;
-//
-//            while ((ligne = buff.readLine()) != null) {
-//
-//                if (!ligne.contains("mogg")) {
-//                    if (ifTitle == true && !ligne.isEmpty()) {
-//                        titre = ligne;
-//                        ifTitle = false;
-//                    } else if (!ligne.isEmpty() && ifTitle == false) {
-//
-//                        nomInstru = ligne.split("\\s+");
-//                        if (!instrument.contains(new Instrument(nomInstru[0])) && !ligne.contains("nfo") && !ligne.contains("png")) {
-//
-//                            if (!nomInstru[0].matches("\\d+")) {
-//                                if (nomInstru[0].contains(".mp3")) {
-//                                    instrument.add(new Instrument(nomInstru[0].split(".mp3")[0]));
-//                                } else {
-//                                    instrument.add(new Instrument(nomInstru[0].split(".ogg")[0]));
-//
-//                                }
-//                            } else if (!instrument.contains(new Instrument(nomInstru[1]))) {
-//                                if (nomInstru[0].contains(".mp3")) {
-//                                    instrument.add(new Instrument(nomInstru[1].split(".mp3")[0]));
-//                                } else {
-//                                    instrument.add(new Instrument(nomInstru[1].split(".ogg")[0]));
-//
-//                                }
-//                            }
-//                        }
-//                        Morceaux.add(new Piste(ligne));
-//
-//                    } else if (ligne.isEmpty()) {
-//                        g2.creerMorceau(titre, Morceaux, instrument);
-//                        System.out.println(titre);
-//                        for (int i = 0; i < Morceaux.size(); i++) {
-//                            System.out.println(Morceaux.get(i));
-//
-//                        }
-//                        for (int i = 0; i < instrument.size(); i++) {
-//                            System.out.println(instrument.get(i));
-//
-//                        }
-//                        System.out.println();
-//
-//                        ifTitle = true;
-//                        instrument = new ArrayList<>();
-//                        titre = new String();
-//                        Morceaux = new ArrayList();
-//
-//                    }
-//                }
-//            }
-//            buff.close();
-//
-//        } catch (IOException e) {
-//            System.out.println(e.toString());
-//        }
-//
-//    }
+    }
 }

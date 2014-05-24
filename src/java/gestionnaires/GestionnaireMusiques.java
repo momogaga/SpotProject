@@ -5,8 +5,13 @@
  */
 package gestionnaires;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.Date;
+import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -31,10 +36,10 @@ public class GestionnaireMusiques {
 
         Artiste a = new Artiste("ACDC");
         Artiste ab = new Artiste("Mors");
-        
+
         Morceau m = new Morceau("High", "2014", a);
         Morceau mr = new Morceau("Well", "2014", ab);
-        
+
         Piste p1 = new Piste("Bass", 5, m);
         Piste p2 = new Piste("Vocals 2 Main", 3, m);
         Piste p3 = new Piste("Drums 4 snare", 5, m);
@@ -61,13 +66,6 @@ public class GestionnaireMusiques {
         em.persist(ab);
     }
 
-    public Artiste creerArtiste(String nom) {
-        Artiste a = new Artiste(nom);
-        em.persist(a);
-
-        return a;
-    }
-
     public Collection<Morceau> getAllMusic() {
         // Exécution d'une requête équivalente à un select *
         Query q = em.createQuery("select m from Morceau m");
@@ -87,5 +85,37 @@ public class GestionnaireMusiques {
     public int getElements() {
         Query q = em.createQuery("select m from Morceau m");
         return q.getResultList().size();
+    }
+
+    public void parse() throws IOException {
+        Artiste a = null;
+        Morceau m = null;
+        Piste p = null;
+
+        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\GAIECH\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
+        BufferedReader buff = new BufferedReader(lecture);
+        String ligne;
+
+        Pattern tiretPattern = Pattern.compile("(\\s-\\s)");
+
+        while ((ligne = buff.readLine()) != null) {
+
+            if (!Pattern.matches("^.*\\.[0-9a-z]+$", ligne) && !Pattern.matches("^\\s*", ligne)) {
+
+                String[] items = tiretPattern.split(ligne);
+
+                a = new Artiste(items[0]);
+
+                m = new Morceau(items[1], "2014", a);
+                a.addMorceau(m);
+
+                em.persist(a);
+                em.persist(m);
+            } else if (!Pattern.matches("^\\s*", ligne)) {
+                p = new Piste(ligne, 5, m);
+                m.addPiste(p);
+                em.persist(p);
+            }
+        }
     }
 }

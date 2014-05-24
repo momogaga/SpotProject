@@ -58,4 +58,9 @@ public class Artiste implements Serializable {
     public void addMorceau(Morceau m) {
         this.morceaux.add(m);
     }
+    
+    @Override
+    public String toString() {
+        return "Artiste : " + nom;
+    }
 }

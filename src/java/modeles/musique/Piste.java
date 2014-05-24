@@ -26,7 +26,7 @@ public class Piste implements Serializable {
 
     private String nom;
     private int difficulte;
-   
+
     @OneToOne(cascade = {CascadeType.ALL})
     private Morceau morceau;
 
@@ -55,4 +55,8 @@ public class Piste implements Serializable {
         this.difficulte = difficulte;
     }
 
+    @Override
+    public String toString() {
+        return "Piste : " + nom + "," + difficulte + "," + morceau.toString();
+    }
 }
