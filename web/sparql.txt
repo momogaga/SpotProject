@@ -1,0 +1,6 @@
+select ?description
+where {
+<http://fr.dbpedia.org/resource/Highway_to_Hell>
+<http://www.w3.org/2000/01/rdf-schema#comment> ?description
+    FILTER(langMatches(lang(?description), "EN"))
+}

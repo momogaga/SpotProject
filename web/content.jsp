@@ -13,6 +13,21 @@
     <head>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
         <title>Gestionnaire de musique</title>  
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#report tr:odd").addClass("odd");
+                $("#report tr:not(.odd)").hide();
+                $("#report tr:first-child").show();
+
+                $("#report tr.odd").click(function() {
+                    $(this).next("tr").toggle();
+                    $(this).find(".arrow").toggleClass("up");
+                });
+                //$("#report").jExpand();
+            });
+        </script>  
     </head>  
     <body> 
         <c:if test="${login ne null}">
@@ -29,42 +44,46 @@
                 <!-- Zone qui affiche les utilisateurs si le paramètre action vaut listerUtilisateur -->  
                 <c:if test="${param.action == 'listerMusic'}" >  
                     <form action="ServletMusic" method="get"> 
-                        <table class="table table-striped">  
-                            <!-- La ligne de titre du tableau des comptes -->  
-                            <tr> 
-                                <td></td>
-                                <td><b>Titre</b></td>  
-                                <td><b>Annee</b></td> 
-                                <td><b>Artiste</b></td> 
-                            </tr>  
 
-                            <!-- Ici on affiche les lignes, une par utilisateur -->  
-                            <!-- cette variable montre comment on peut utiliser JSTL et EL pour calculer -->  
-                            <c:set var="total" value="0"/>  
-
+                        <table class="table table-striped" id="report">
+                            <tr>  
+                                <th></th>
+                                <th>Titre</th>
+                                <th>Année</th>
+                                <th>Artiste</th>
+                                <th></th>
+                            </tr>
                             <c:forEach var="m" items="${listMusic}" varStatus="status">  
                                 <tr class="${status.index%2==0 ? 'alt' : ''}"> 
                                     <td><span class="glyphicon glyphicon-play-circle"</span></td>
                                     <td>${m.titre}</td> 
                                     <td>${m.annee}</td>
                                     <td>${m.artiste.nom}</td>
-                                    <td>
-                                        <c:forEach var="p" items="${m.pistes}">
-                                            ${p.nom} <br >
-                                        </c:forEach>
-                                    </td> 
-                                    <c:set var="total" value="${total+1}"/>  
+                                    <td><span class="glyphicon glyphicon-chevron-down"></span></td>
+                                        <c:set var="total" value="${total+1}"/>  
                                 </tr>  
+                                <tr>
+                                    <td colspan="5">
+                                        <h4>Pistes disponibles :</h4>
+                                        <ul>
+                                            <c:forEach var="p" items="${m.pistes}">
+                                                <li>${p.nom}</li>  
+                                                </c:forEach>
+                                        </ul>
+                                    </td>  
+                                </tr>
                             </c:forEach>  
-
                             <!-- Affichage du solde total dans la dernière ligne du tableau -->  
                             <tr>
                                 <td><b>Total :</b></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                                 <td><b>${total}</b></td>
                             </tr>  
-                        </table>  
+
+                        </table>   
+
                         <div style="text-align: center">
                             <ul class="pagination pagination-sm" style="margin: 0px;">  
                                 <c:if test="${currentPage != 1}">
@@ -93,6 +112,10 @@
                 </c:if>  
             </div>   
         </c:if>
+
+
+
+
 
     </body>
 </html>
