@@ -6,8 +6,6 @@
 package gestionnaires;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,28 +25,33 @@ public class GestionnaireUtilisateurs {
     @PersistenceContext
     private EntityManager em;
 
+    public void initAbonnement() {
+        Abonnement gratuit = new Abonnement("Gratuit", 3, 2);
+        em.persist(gratuit);
+        Abonnement we = new Abonnement("Week-end", 3, 2);
+        em.persist(we);
+        Abonnement semaine = new Abonnement("Semaine", 5, 7);
+        em.persist(semaine);
+        Abonnement mois = new Abonnement("Mois", 10, 30);
+        em.persist(mois);
+        Abonnement an = new Abonnement("An", 45, 365);
+        em.persist(an);
+        Abonnement vie = new Abonnement("Vie", 300, -1);
+        em.persist(vie);
+    }
+
     public void creerUtilisateursDeTest() {
+        initAbonnement();
+
         Utilisateur root = creerUtilisateur("root", "root");
         Utilisateur admin = creerUtilisateur("admin", "admin");
-        Utilisateur test = creerUtilisateur("test", "test");
-
-        Abonnement we = new Abonnement("Week-end", 3, 2);
-
-        Abonnement semaine = new Abonnement("Semaine", 5, 7);
-
-        root.setAbonnement(we);
-        em.merge(root);
-
-        root.setAbonnement(semaine);
-        em.merge(root);
-
     }
 
     public Utilisateur creerUtilisateur(String login, String password) {
         Utilisateur u = new Utilisateur(login, password);
-        Abonnement gratuit = new Abonnement("Gratuit", 0, 0);
-        em.persist(gratuit);
-        u.setAbonnement(gratuit);
+        Abonnement a = em.find(Abonnement.class, 1);
+        u.setAbonnement(a);
+        a.addUtilisateur(u);
         em.persist(u);
         return u;
     }
@@ -60,53 +63,17 @@ public class GestionnaireUtilisateurs {
         return u;
     }
 
-    public void modifierUtilisateur(String login, String nomAbonnement) {
+    public void modifierUtilisateur(String login, int id) {
         Utilisateur u = chercherUnUtilisateurParLogin(login);
 
-        System.out.println("Login : " + u.getLogin() + "Pass : " + u.getPassword() + "Abo : " + nomAbonnement);
-        Abonnement abonnement = null;
-
-        switch (nomAbonnement) {
-            case ("Week-end"):
-                abonnement = new Abonnement(nomAbonnement, 3, 2);
-                em.persist(abonnement);
-                u.setAbonnement(abonnement);
-                em.merge(u);
-                break;
-            case ("Semaine"):
-                abonnement = new Abonnement(nomAbonnement, 5, 7);
-                em.persist(abonnement);
-                u.setAbonnement(abonnement);
-                em.merge(u);
-                break;
-            case ("Mois"):
-                abonnement = new Abonnement(nomAbonnement, 15, 30);
-                em.persist(abonnement);
-                u.setAbonnement(abonnement);
-                em.merge(u);
-                break;
-            case ("An"):
-                abonnement = new Abonnement(nomAbonnement, 45, 365);
-                em.persist(abonnement);
-                u.setAbonnement(abonnement);
-                em.merge(u);
-                break;
-            case ("Vie"):
-                abonnement = new Abonnement(nomAbonnement, 300, -1);
-                em.persist(abonnement);
-                u.setAbonnement(abonnement);
-                em.merge(u);
-                break;
-            default:
-                break;
-        }
+        Abonnement a = em.find(Abonnement.class, id);
+        u.setAbonnement(a);
+        a.addUtilisateur(u);
     }
 
     public void supprimeUnUtilisateur(int id) {
-
         Utilisateur u = em.find(Utilisateur.class, id);
         em.remove(u);
-
     }
 
     public Boolean isUser(String login, String password) {
@@ -129,5 +96,10 @@ public class GestionnaireUtilisateurs {
             crypte = crypte + (char) c;
         }
         return crypte;
+    }
+
+    public Collection<Utilisateur> afficherUtilisateur() {
+        Query q = em.createQuery("select u from Utilisateur u");
+        return q.getResultList();
     }
 }

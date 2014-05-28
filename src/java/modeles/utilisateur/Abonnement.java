@@ -15,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
 /**
  *
  * @author Bastien
@@ -30,7 +29,10 @@ public class Abonnement implements Serializable {
     private String nom;
     private double prix;
     private int duree;
-    
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    private Set<Utilisateur> utilisateurs;
+
     public Abonnement() {
     }
 
@@ -38,25 +40,42 @@ public class Abonnement implements Serializable {
         this.nom = nom;
         this.prix = prix;
         this.duree = duree;
+        this.utilisateurs = new HashSet();
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-       
     public String getNom() {
         return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public double getPrix() {
         return prix;
     }
 
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
     public int getDuree() {
         return duree;
-    } 
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }
+
+    public Set<Utilisateur> getUtilisateurs() {
+        return utilisateurs;
+    }
+
+    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
+    }
+
+    public void addUtilisateur(Utilisateur u) {
+        this.utilisateurs.add(u);
+    }
 }

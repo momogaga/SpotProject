@@ -72,7 +72,8 @@
                                         </ul>
                                     </td>  
                                 </tr>
-                            </c:forEach>  
+                            </c:forEach> 
+
                             <!-- Affichage du solde total dans la dernière ligne du tableau -->  
                             <tr>
                                 <td><b>Total :</b></td>

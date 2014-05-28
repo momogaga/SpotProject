@@ -6,9 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.Principal;
-import java.util.Collection;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,8 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import gestionnaires.GestionnaireUtilisateurs;
+import java.util.Collection;
 import modeles.utilisateur.Utilisateur;
 
 /**
@@ -53,7 +50,6 @@ public class ServletUsers extends HttpServlet {
         if (action != null) {
             if (action.equals("creerUtilisateursDeTest")) {
                 gestionnaireUtilisateurs.creerUtilisateursDeTest();
-
                 forwardTo = "index.jsp";
                 message = "Liste des utilisateurs";
             } else if (action.equals("creerUtilisateur")) {
@@ -61,8 +57,17 @@ public class ServletUsers extends HttpServlet {
                 forwardTo = "index.jsp?";
                 message = "Liste des utilisateurs";
             } else if (action.equals("modifierUtilisateur")) {
-                gestionnaireUtilisateurs.modifierUtilisateur(login, abonnement);
+                gestionnaireUtilisateurs.modifierUtilisateur(login, Integer.parseInt(abonnement));
                 forwardTo = "index.jsp?";
+                message = "Liste des utilisateurs";
+            } else if (action.equals("afficherUtilisateur")) {
+                Collection<Utilisateur> liste = gestionnaireUtilisateurs.afficherUtilisateur();
+                request.setAttribute("listUsers", liste);
+                forwardTo = "index.jsp?action=afficherUtilisateur";
+                message = "Liste des utilisateurs";
+            } else if (action.equals("chercherUtilisateur")) {
+                gestionnaireUtilisateurs.chercherUnUtilisateurParLogin(login);
+                forwardTo = "index.jsp?action=afficherUtilisateur";
                 message = "Liste des utilisateurs";
             } else {
                 forwardTo = "index.jsp?action=todo";

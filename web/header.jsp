@@ -74,6 +74,17 @@
             <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">
                 <div class="form-group">
                     <label>Bienvenue à ${login} !</label>
+                    <a href="ServletUsers?action=afficherUtilisateur">Afficher</a>
+                    <c:if test="${param.action == 'afficherUtilisateur'}" > 
+                        <form action="ServletUsers" method="get">
+                            
+                            <label>Votre abonnement est : 
+                                <c:forEach var="u" items="${listUsers}" varStatus="status">
+                                   ${u.abonnement.nom} & ${u.abonnement.duree}
+                                </c:forEach>
+                            </label>
+                        </form>
+                    </c:if>
                     <button type="submit" name="submit" class="btn btn-default">Déconnexion</button>
                 </div>
             </form>
@@ -92,11 +103,11 @@
                                         <label class="col-md-4 control-label" for="abonnement">Abonnement :</label>
                                         <div class="col-md-4">
                                             <select id="abonnement" name="abonnement" class="form-control">
-                                                <option value="Week-end">Week-end</option>
-                                                <option value="Semaine">Semaine</option>
-                                                <option value="Mois">Mois</option>
-                                                <option value="An">An</option>
-                                                <option value="Vie">Vie</option>
+                                                <option value="2">Week-end</option>
+                                                <option value="3">Semaine</option>
+                                                <option value="4">Mois</option>
+                                                <option value="5">An</option>
+                                                <option value="6">Vie</option>
                                             </select>
                                         </div>
                                     </div>

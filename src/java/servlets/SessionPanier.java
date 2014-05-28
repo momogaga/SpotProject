@@ -6,24 +6,18 @@
 package servlets;
 
 import java.io.IOException;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import gestionnaires.GestionnaireUtilisateurs;
 
 /**
  *
- * @author giuse_000
+ * @author MoMo
  */
-@WebServlet(name = "SessionLogin", urlPatterns = {"/SessionLogin"})
-public class SessionLogin extends HttpServlet {
-
-    @EJB
-    private GestionnaireUtilisateurs gestionnaireUtilisateurs;
+@WebServlet(name = "SessionPanier", urlPatterns = {"/SessionPanier"})
+public class SessionPanier extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,14 +28,14 @@ public class SessionLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            /* TODO output your page here. You may use following sample code. */
-
+        // Après un forward, plus rien ne peut être exécuté après !  
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -67,17 +61,9 @@ public class SessionLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String login = request.getParameter("log");
-        String password = request.getParameter("pass");
-        Boolean isUser = gestionnaireUtilisateurs.isUser(login, password);
- 
-        if (isUser == true) {
-            HttpSession session = request.getSession();
-            session.setAttribute("login", login);
-           
-        }
 
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        processRequest(request, response);
+
     }
 
     /**
