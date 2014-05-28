@@ -32,7 +32,81 @@
     <body> 
         <c:if test="${login ne null}">
             <div class="row">                
+                <div class="tab-pane active">
+                    <a href="ServletMusic?action=listerMusic">Afficher la liste des musiques</a>
+ 
+                    <c:if test="${param.action == 'listerMusic'}" >  
+                        <form action="ServletMusic" method="get"> 
 
+                            <table class="table table-striped" id="report">
+                                <tr>  
+                                    <th></th>
+                                    <th>Titre</th>
+                                    <th>Année</th>
+                                    <th>Artiste</th>
+                                    <th></th>
+                                </tr>
+                                
+                                <c:forEach var="m" items="${listMusic}" varStatus="status">  
+
+                                    <tr class="${status.index%2==0 ? 'alt' : ''}"> 
+                                        <td><span class="glyphicon glyphicon-play-circle"</span></td>
+                                        <td>${m.titre}</td> 
+                                        <td>${m.annee}</td>
+                                        <td>${m.artiste.nom}</td>
+                                        <td><span class="glyphicon glyphicon-chevron-down"></span></td>
+                                            <c:set var="total" value="${total+1}"/>  
+                                    </tr>  
+                                    <tr>
+                                        <td colspan="5">
+                                            <h4>Pistes disponibles :</h4>
+                                            <ul>
+                                                <c:forEach var="p" items="${m.pistes}">
+                                                    <li>${p.nom}</li>  
+                                                    </c:forEach>
+                                            </ul>
+                                        </td>  
+                                    </tr>
+                                </c:forEach> 
+
+                                <!-- Affichage du solde total dans la dernière ligne du tableau -->  
+                                <tr>
+                                    <td><b>Total :</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>${total}</b></td>
+                                </tr>  
+                            </table>   
+
+                            <div style="text-align: center">
+                                <ul class="pagination pagination-sm" style="margin: 0px;">  
+                                    <c:if test="${currentPage != 1}">
+                                        <li><a href="ServletMusic?action=listerMusic&page=${currentPage - 1}">Previous</a></li>
+                                        </c:if>
+
+                                    <c:forEach begin="1" end="${noOfPages}" var="i">
+                                        <c:choose>
+                                            <c:when test="${currentPage eq i}">
+                                                <li></li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                <li><a href="ServletMusic?action=listerMusic&page=${i}">${i}</a></li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+
+
+                                    <%--For displaying Next link --%>
+                                    <c:if test="${currentPage lt noOfPages}">
+                                        <li><a href="ServletMusic?action=listerMusic&page=${currentPage + 1}">Next</a></li>
+                                        </c:if>  
+                                </ul>
+                            </div>
+
+                        </form>
+                    </c:if>  
+                </div>   
             </div>
         </c:if> 
         <c:if test="${empty login}">
@@ -53,7 +127,9 @@
                                 <th>Artiste</th>
                                 <th></th>
                             </tr>
-                            <c:forEach var="m" items="${listMusic}" varStatus="status">  
+                            <c:set var="rand"><%= java.lang.Math.round(java.lang.Math.random() * 2)%></c:set>
+                            <c:forEach var="m" items="${listMusic}" varStatus="status"  begin="0" end="4">  
+
                                 <tr class="${status.index%2==0 ? 'alt' : ''}"> 
                                     <td><span class="glyphicon glyphicon-play-circle"</span></td>
                                     <td>${m.titre}</td> 
@@ -82,40 +158,11 @@
                                 <td></td>
                                 <td><b>${total}</b></td>
                             </tr>  
-
-                        </table>   
-
-                        <div style="text-align: center">
-                            <ul class="pagination pagination-sm" style="margin: 0px;">  
-                                <c:if test="${currentPage != 1}">
-                                    <li><a href="ServletMusic?action=listerMusic&page=${currentPage - 1}">Previous</a></li>
-                                    </c:if>
-
-                                <c:forEach begin="1" end="${noOfPages}" var="i">
-                                    <c:choose>
-                                        <c:when test="${currentPage eq i}">
-                                            <li></li>
-                                            </c:when>
-                                            <c:otherwise>
-                                            <li><a href="ServletMusic?action=listerMusic&page=${i}">${i}</a></li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-
-
-                                <%--For displaying Next link --%>
-                                <c:if test="${currentPage lt noOfPages}">
-                                    <li><a href="ServletMusic?action=listerMusic&page=${currentPage + 1}">Next</a></li>
-                                    </c:if>  
-                            </ul>
-                        </div>
+                        </table>  
                     </form>
                 </c:if>  
             </div>   
         </c:if>
-
-
-
 
 
     </body>
