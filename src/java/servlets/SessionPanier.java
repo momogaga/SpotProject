@@ -16,15 +16,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modeles.achat.Cart;
 import modeles.achat.Item;
-import modeles.achat.Panier;
 import modeles.musique.Morceau;
 
 /**
  *
  * @author MoMo
  */
-@WebServlet(name = "SessionPanier", urlPatterns = {"/SessionPanier"})
+@WebServlet(name = "SessionPanier", urlPatterns = {"/cart"})
 public class SessionPanier extends HttpServlet {
 
     @EJB
@@ -42,7 +42,6 @@ public class SessionPanier extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Après un forward, plus rien ne peut être exécuté après !  
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,13 +56,13 @@ public class SessionPanier extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String code = request.getParameter("code");
-        String quantityString = request.getParameter("quantite");
-
+        String productCode = request.getParameter("productCode");
+        String quantityString = request.getParameter("quantity");
+        System.out.println(productCode);
         HttpSession session = request.getSession();
-        Panier panier = (Panier) session.getAttribute("panier");
-        if (panier == null) {
-            panier = new Panier();
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
         }
 
         //if the user enters a negative or invalid quantity,
@@ -79,18 +78,18 @@ public class SessionPanier extends HttpServlet {
         }
 
         ServletContext sc = getServletContext();
-        Morceau morceau = gestionnaireMusique.getMusic();
+        Morceau morceau = gestionnaireMusique.getMorceau(Integer.parseInt(productCode));
 
         Item lineItem = new Item();
         lineItem.setMorceau(morceau);
-        lineItem.setQuantite(quantity);
+        lineItem.setQuantity(quantity);
         if (quantity > 0) {
-            panier.addItem(lineItem);
+            cart.addItem(lineItem);
         } else if (quantity == 0) {
-            panier.removeItem(lineItem);
+            cart.removeItem(lineItem);
         }
 
-        session.setAttribute("panier", panier);
+        session.setAttribute("cart", cart);
         String url = "/cart.jsp";
         RequestDispatcher dispatcher
                 = getServletContext().getRequestDispatcher(url);

@@ -45,7 +45,7 @@ public class Parser {
 
                 String[] items = tiretPattern.split(ligne);
                 a = new Artiste(items[0]);
-                m = new Morceau(items[1].replace(":", ""), "2001", a);
+                m = new Morceau(items[1].replace(":", ""), "2001", 1.80, a);
 
                 m.setPistes(pistes);
                 System.out.println(a.toString());

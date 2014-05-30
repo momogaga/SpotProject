@@ -76,7 +76,7 @@ public class GestionnaireMusiques {
         Morceau m = null;
         Piste p = null;
 
-        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\Bastien\\Documents\\NetBeansProjects\\SpotProjectBis\\web\\resources\\data\\liste.txt"));
+        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\GAIECH\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
         BufferedReader buff = new BufferedReader(lecture);
         String ligne;
 
@@ -90,7 +90,7 @@ public class GestionnaireMusiques {
 
                 a = new Artiste(items[0]);
 
-                m = new Morceau(items[1].replace(":", ""), "2014", a);
+                m = new Morceau(items[1].replace(":", ""), "2014", 1.80, a);
                 a.addMorceau(m);
 
                 em.persist(a);
@@ -103,7 +103,10 @@ public class GestionnaireMusiques {
         }
     }
 
-    public Morceau getMusic() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Morceau getMorceau(int id) {
+        Query q = em.createQuery("select m from Morceau m where m.id=:id");
+        q.setParameter("id", id);
+        Morceau m = (Morceau) q.getSingleResult();
+        return m;
     }
 }

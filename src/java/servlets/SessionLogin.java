@@ -74,7 +74,7 @@ public class SessionLogin extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("login", login);
             session.setAttribute("abo", gestionnaireUtilisateurs.getAbonnementUtilisateur(login));
-            session.setAttribute("delai", gestionnaireUtilisateurs.getRestant(login));
+            //session.setAttribute("delai", gestionnaireUtilisateurs.getRestant(login));
         }
 
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);

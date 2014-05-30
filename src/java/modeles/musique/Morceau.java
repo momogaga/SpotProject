@@ -36,6 +36,7 @@ public class Morceau implements Serializable {
 
     private String titre;
     private String annee;
+    private double prix;
       
     @OneToOne(cascade = {CascadeType.ALL})
     private Artiste artiste;
@@ -46,11 +47,20 @@ public class Morceau implements Serializable {
     public Morceau() {
     }
 
-    public Morceau(String titre, String annee, Artiste artiste) {
+    public Morceau(String titre, String annee, double prix, Artiste artiste) {
         this.titre = titre;
         this.annee = annee;
         this.artiste = artiste;
+        this.prix = prix;
         this.pistes = new HashSet<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitre() {
@@ -75,8 +85,16 @@ public class Morceau implements Serializable {
 
     public void setArtiste(Artiste artiste) {
         this.artiste = artiste;
+    }    
+
+    public double getPrix() {
+        return prix;
     }
 
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+    
     public Set<Piste> getPistes() {
         return pistes;
     }
