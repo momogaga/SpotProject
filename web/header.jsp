@@ -91,7 +91,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <input type="hidden" id="login" name="login" value="${login}"/> 
-                                        <h3>Votre offre est la suivante : ${abo.nom} </h3>
+                                        <h3>Votre abonnement : "${abo.nom}" </h3>
+                                        <h3>Prix de l'offre : ${abo.prix} &euro;</h3>
                                         <h3>Restant : ${delai} jours</h3>
 
 

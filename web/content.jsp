@@ -65,7 +65,7 @@
                 <div class="tab-pane active">
                     <a href="ServletMusic?action=listerMusic">Afficher la liste des musiques</a>
 
-                    <c:if test="${param.action == 'listerMusic'}" >  
+                    <c:if test="${(param.action == 'listerMusic') && (abo.nom == 'Gratuit')}" >  
                         <form action="ServletMusic" method="get"> 
 
                             <table class="table table-striped" id="report">
@@ -73,7 +73,6 @@
                                     <th width="10px"><span class='glyphicon glyphicon-music'></span></th>
                                     <th>Titre</th>
                                     <th>Artiste</th>
-
                                     <th width="100px"><span class='glyphicon glyphicon-globe'></span> Wiki</th>
                                     <th width="10px"> </th>
                                 </tr>
@@ -82,10 +81,9 @@
 
                                     <tr class="${status.index%2==0 ? 'alt' : ''}"> 
 
-                                        <td><a href="#"><span class="glyphicon glyphicon-play-circle"></span></a></td>
+                                        <td><span class="glyphicon glyphicon-play-circle"></span></td>
                                         <td>${m.titre}</td> 
                                         <td>${m.artiste.nom}</td>
-
                                         <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
                                         <td><button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-euro"></span></button></td>
                                     </tr>   
@@ -127,6 +125,69 @@
                             </div>
                         </form>
                     </c:if>  
+
+                    <!--pour les abonnés-->
+                    <c:if test="${(param.action == 'listerMusic') && (abo.nom != 'Gratuit')}" >
+
+                        <form action="ServletMusic" method="get"> 
+
+                            <table class="table table-striped" id="report">
+                                <tr class="active">  
+                                    <th width="10px"><span class='glyphicon glyphicon-music'></span></th>
+                                    <th>Titre</th>
+                                    <th>Artiste</th>
+                                    <th width="100px"><span class='glyphicon glyphicon-globe'></span> Wiki</th>
+                                </tr>
+
+                                <c:forEach var="m" items="${listMusic}" varStatus="status">  
+
+                                    <tr class="${status.index%2==0 ? 'alt' : ''}"> 
+
+                                        <td><a href="#"><span style="color:rgb(0, 204, 0);" class="glyphicon glyphicon-play-circle"></span></a></td>
+                                        <td>${m.titre}</td> 
+                                        <td>${m.artiste.nom}</td>
+                                        <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
+                                    </tr>   
+                                    <tr>
+                                        <td colspan="5">
+                                            <h4>Pistes disponibles :</h4>
+                                            <ul style='list-style-type:none;'>
+                                                <c:forEach var="p" items="${m.pistes}">
+                                                    <li><span class="glyphicon glyphicon-play-circle"></span> ${p.nom}</li>  
+                                                    </c:forEach>
+                                            </ul>
+                                        </td>  
+                                    </tr>
+                                </c:forEach>  
+                            </table>   
+                            <div style="text-align: center">
+                                <ul class="pagination pagination-sm" style="margin: 0px;">  
+                                    <c:if test="${currentPage != 1}">
+                                        <li><a href="ServletMusic?action=listerMusic&page=${currentPage - 1}">Previous</a></li>
+                                        </c:if>
+
+                                    <c:forEach begin="1" end="${noOfPages}" var="i">
+                                        <c:choose>
+                                            <c:when test="${currentPage eq i}">
+                                                <li></li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                <li><a href="ServletMusic?action=listerMusic&page=${i}">${i}</a></li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+
+
+                                    <%--For displaying Next link --%>
+                                    <c:if test="${currentPage lt noOfPages}">
+                                        <li><a href="ServletMusic?action=listerMusic&page=${currentPage + 1}">Next</a></li>
+                                        </c:if>  
+                                </ul>
+                            </div>
+                        </form>
+                    </c:if>  
+
+
                 </div>   
             </div>
         </c:if> 
