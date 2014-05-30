@@ -71,6 +71,12 @@ public class GestionnaireUtilisateurs {
         a.addUtilisateur(u);
     }
 
+    public Abonnement getAbonnementUtilisateur(String login) {
+        Utilisateur u = chercherUnUtilisateurParLogin(login);
+        Abonnement a = u.getAbonnement();
+        return a;
+    }
+
     public void supprimeUnUtilisateur(int id) {
         Utilisateur u = em.find(Utilisateur.class, id);
         em.remove(u);

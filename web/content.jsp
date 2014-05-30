@@ -30,53 +30,64 @@
         </script>  
     </head>  
     <body> 
+
         <c:if test="${login ne null}">
-            <div class="row">                
+            <div class="row">   
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option value="artiste">Artiste</option>
+                            <option value="morceau">Morceau</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" placeholder="search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Rechercher</button>
+                </form>
+
+                <br>
+
                 <div class="tab-pane active">
                     <a href="ServletMusic?action=listerMusic">Afficher la liste des musiques</a>
- 
+
                     <c:if test="${param.action == 'listerMusic'}" >  
                         <form action="ServletMusic" method="get"> 
 
                             <table class="table table-striped" id="report">
-                                <tr>  
-                                    <th></th>
+                                <tr class="active">  
+                                    <th width="10px"><span class='glyphicon glyphicon-music'></span></th>
                                     <th>Titre</th>
-                                    <th>Année</th>
                                     <th>Artiste</th>
-                                    <th></th>
+
+                                    <th width="100px"><span class='glyphicon glyphicon-globe'></span> Wiki</th>
+                                    <th width="10px"> </th>
                                 </tr>
-                                
+
                                 <c:forEach var="m" items="${listMusic}" varStatus="status">  
 
                                     <tr class="${status.index%2==0 ? 'alt' : ''}"> 
-                                        <td><span class="glyphicon glyphicon-play-circle"</span></td>
+
+                                        <td><a href="#"><span class="glyphicon glyphicon-play-circle"></span></a></td>
                                         <td>${m.titre}</td> 
-                                        <td>${m.annee}</td>
                                         <td>${m.artiste.nom}</td>
-                                        <td><span class="glyphicon glyphicon-chevron-down"></span></td>
-                                            <c:set var="total" value="${total+1}"/>  
-                                    </tr>  
+
+                                        <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
+                                        <td><button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-euro"></span></button></td>
+                                    </tr>   
                                     <tr>
                                         <td colspan="5">
                                             <h4>Pistes disponibles :</h4>
-                                            <ul>
+                                            <ul style='list-style-type:none;'>
                                                 <c:forEach var="p" items="${m.pistes}">
-                                                    <li>${p.nom}</li>  
+                                                    <li><span class="glyphicon glyphicon-play-circle"></span> ${p.nom}</li>  
                                                     </c:forEach>
                                             </ul>
                                         </td>  
                                     </tr>
-                                </c:forEach> 
-
-                                <!-- Affichage du solde total dans la dernière ligne du tableau -->  
-                                <tr>
-                                    <td><b>Total :</b></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><b>${total}</b></td>
-                                </tr>  
+                                </c:forEach>  
                             </table>   
 
                             <div style="text-align: center">
@@ -110,59 +121,41 @@
             </div>
         </c:if> 
         <c:if test="${empty login}">
-            <p>Veuillez vous connecter pour accéder aux fonctionnalités.</p>
+
+            <a href="ServletMusic?action=listerMusic"><h3>Testez trois morceaux gratuits !</h3></a>
 
             <div class="tab-pane active">
-                <a href="ServletMusic?action=listerMusic">Afficher la liste des musiques</a>
+                <br>
 
                 <!-- Zone qui affiche les utilisateurs si le paramètre action vaut listerUtilisateur -->  
                 <c:if test="${param.action == 'listerMusic'}" >  
                     <form action="ServletMusic" method="get"> 
 
-                        <table class="table table-striped" id="report">
-                            <tr>  
-                                <th></th>
+                        <table class="table table-bordered">
+                            <tr class="active">  
+                                <th width="10px"><span class='glyphicon glyphicon-music'></span></th>
                                 <th>Titre</th>
-                                <th>Année</th>
                                 <th>Artiste</th>
-                                <th></th>
+                                <th>Année</th>
+                                <th width="100px"><span class='glyphicon glyphicon-globe'></span> Wiki</th>
                             </tr>
-                            <c:set var="rand"><%= java.lang.Math.round(java.lang.Math.random() * 2)%></c:set>
-                            <c:forEach var="m" items="${listMusic}" varStatus="status"  begin="0" end="4">  
-
+                            <c:forEach var="m" items="${listMusic}" varStatus="status"  begin="0" end="2">  
                                 <tr class="${status.index%2==0 ? 'alt' : ''}"> 
-                                    <td><span class="glyphicon glyphicon-play-circle"</span></td>
+                                    <td><a href="#"><span class="glyphicon glyphicon-play-circle"></span></a></td>
                                     <td>${m.titre}</td> 
-                                    <td>${m.annee}</td>
                                     <td>${m.artiste.nom}</td>
-                                    <td><span class="glyphicon glyphicon-chevron-down"></span></td>
-                                        <c:set var="total" value="${total+1}"/>  
+                                    <td>${m.annee}</td>
+                                    <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
                                 </tr>  
-                                <tr>
-                                    <td colspan="5">
-                                        <h4>Pistes disponibles :</h4>
-                                        <ul>
-                                            <c:forEach var="p" items="${m.pistes}">
-                                                <li>${p.nom}</li>  
-                                                </c:forEach>
-                                        </ul>
-                                    </td>  
-                                </tr>
+
                             </c:forEach> 
 
-                            <!-- Affichage du solde total dans la dernière ligne du tableau -->  
-                            <tr>
-                                <td><b>Total :</b></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><b>${total}</b></td>
-                            </tr>  
                         </table>  
                     </form>
                 </c:if>  
             </div>   
         </c:if>
+
 
 
     </body>

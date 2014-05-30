@@ -37,8 +37,7 @@ public class SessionLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            /* TODO output your page here. You may use following sample code. */
-
+        /* TODO output your page here. You may use following sample code. */
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,11 +69,11 @@ public class SessionLogin extends HttpServlet {
         String login = request.getParameter("log");
         String password = request.getParameter("pass");
         Boolean isUser = gestionnaireUtilisateurs.isUser(login, password);
- 
+
         if (isUser == true) {
             HttpSession session = request.getSession();
             session.setAttribute("login", login);
-           
+            session.setAttribute("abo", gestionnaireUtilisateurs.getAbonnementUtilisateur(login));
         }
 
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);

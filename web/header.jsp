@@ -74,17 +74,6 @@
             <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">
                 <div class="form-group">
                     <label>Bienvenue à ${login} !</label>
-                    <a href="ServletUsers?action=afficherUtilisateur">Afficher</a>
-                    <c:if test="${param.action == 'afficherUtilisateur'}" > 
-                        <form action="ServletUsers" method="get">
-                            
-                            <label>Votre abonnement est : 
-                                <c:forEach var="u" items="${listUsers}" varStatus="status">
-                                   ${u.abonnement.nom} & ${u.abonnement.duree}
-                                </c:forEach>
-                            </label>
-                        </form>
-                    </c:if>
                     <button type="submit" name="submit" class="btn btn-default">Déconnexion</button>
                 </div>
             </form>
@@ -99,6 +88,11 @@
 
                                     <legend>Modifier mon compte</legend>
                                     <input type="hidden" id="login" name="login" value="${login}"/> 
+                                    <h3>Votre offre est la suivante : ${abo.nom} </h3>
+
+
+
+
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="abonnement">Abonnement :</label>
                                         <div class="col-md-4">

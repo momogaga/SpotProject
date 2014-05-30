@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modeles.musique.Morceau;
+
 /**
  *
  * @author MoMo
@@ -35,7 +36,6 @@ public class ServletMusic extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Pratique pour décider de l'action à faire  
@@ -64,7 +64,7 @@ public class ServletMusic extends HttpServlet {
 
                 forwardTo = "index.jsp?action=listerMusic";
                 message = "Liste des musiques";
-              
+
             } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";

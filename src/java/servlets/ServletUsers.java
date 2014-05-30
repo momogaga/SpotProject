@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import gestionnaires.GestionnaireUtilisateurs;
 import java.util.Collection;
+import javax.servlet.http.HttpSession;
 import modeles.utilisateur.Utilisateur;
 
 /**
@@ -57,9 +58,11 @@ public class ServletUsers extends HttpServlet {
                 forwardTo = "index.jsp?";
                 message = "Liste des utilisateurs";
             } else if (action.equals("modifierUtilisateur")) {
+                HttpSession session = request.getSession();
                 gestionnaireUtilisateurs.modifierUtilisateur(login, Integer.parseInt(abonnement));
                 forwardTo = "index.jsp?";
                 message = "Liste des utilisateurs";
+                session.setAttribute("abo", gestionnaireUtilisateurs.getAbonnementUtilisateur(login));
             } else if (action.equals("afficherUtilisateur")) {
                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.afficherUtilisateur();
                 request.setAttribute("listUsers", liste);
@@ -78,7 +81,7 @@ public class ServletUsers extends HttpServlet {
         RequestDispatcher dp = request.getRequestDispatcher(forwardTo + "&message=" + message);
 
         dp.forward(request, response);
-    // Après un forward, plus rien ne peut être exécuté après !  
+        // Après un forward, plus rien ne peut être exécuté après !  
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
