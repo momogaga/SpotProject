@@ -6,12 +6,15 @@
 package modeles.utilisateur;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -26,7 +29,9 @@ public class Utilisateur implements Serializable {
     private int id;
     private String login;
     private String password;
-    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateDebutAbo;
+
     @OneToOne(cascade = {CascadeType.ALL})
     private Abonnement abonnement;
 
@@ -37,6 +42,17 @@ public class Utilisateur implements Serializable {
         this.login = login;
         this.password = this.encrypt(password);
         this.abonnement = new Abonnement();
+        Calendar cal = Calendar.getInstance();
+
+        this.dateDebutAbo = cal.getTime();
+    }
+
+    public void setDateDebutAbo(Date dateDebutAbo) {
+        this.dateDebutAbo = dateDebutAbo;
+    }
+
+    public Date getDateDebutAbo() {
+        return dateDebutAbo;
     }
 
     public Abonnement getAbonnement() {
@@ -46,7 +62,7 @@ public class Utilisateur implements Serializable {
     public void setAbonnement(Abonnement abonnement) {
         this.abonnement = abonnement;
     }
-    
+
     public String getLogin() {
         return login;
     }

@@ -5,13 +5,20 @@
  */
 package gestionnaires;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import modeles.utilisateur.Abonnement;
 import modeles.utilisateur.Utilisateur;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 /**
  *
@@ -26,7 +33,7 @@ public class GestionnaireUtilisateurs {
     private EntityManager em;
 
     public void initAbonnement() {
-        Abonnement gratuit = new Abonnement("Gratuit", 3, 2);
+        Abonnement gratuit = new Abonnement("Gratuit", 0, 0);
         em.persist(gratuit);
         Abonnement we = new Abonnement("Week-end", 3, 2);
         em.persist(we);
@@ -36,7 +43,7 @@ public class GestionnaireUtilisateurs {
         em.persist(mois);
         Abonnement an = new Abonnement("An", 45, 365);
         em.persist(an);
-        Abonnement vie = new Abonnement("Vie", 300, -1);
+        Abonnement vie = new Abonnement("Vie", 300, 99999999);
         em.persist(vie);
     }
 
@@ -65,7 +72,7 @@ public class GestionnaireUtilisateurs {
 
     public void modifierUtilisateur(String login, int id) {
         Utilisateur u = chercherUnUtilisateurParLogin(login);
-
+        u.setDateDebutAbo(new Date());
         Abonnement a = em.find(Abonnement.class, id);
         u.setAbonnement(a);
         a.addUtilisateur(u);
@@ -107,5 +114,44 @@ public class GestionnaireUtilisateurs {
     public Collection<Utilisateur> afficherUtilisateur() {
         Query q = em.createQuery("select u from Utilisateur u");
         return q.getResultList();
+    }
+
+    public Date getDateDeFin(String login) {
+        Date dateFin = null;
+        Utilisateur u = chercherUnUtilisateurParLogin(login);
+        // SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date debut = u.getDateDebutAbo();
+        //System.out.println("debut abo : " + debut.toString());
+
+        // dateFin = debut + u.getAbonnement().getDuree();
+        dateFin = new Date(debut.getTime() + TimeUnit.DAYS.toMillis(u.getAbonnement().getDuree()));
+        // System.out.println("date de fin : " + dateFin.toString());
+
+        return dateFin;
+    }
+
+    public int getRestant(String login) {
+
+        Date fin = getDateDeFin(login);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fin);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        DateTime dt1 = new DateTime(year, month, day, 0, 0);
+        System.out.println("fin : " + dt1.toString());
+        DateTime dt2 = DateTime.now();
+        System.out.println("oji : " + dt2.toString());
+        int days = Days.daysBetween(dt2, dt1).getDays();
+
+        return days;
+    }
+
+    public Date getDelai(String login) {
+        Utilisateur u = chercherUnUtilisateurParLogin(login);
+        Date d = u.getDateDebutAbo();
+        return d;
     }
 }

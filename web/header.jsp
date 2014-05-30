@@ -85,17 +85,24 @@
 
                             <form class="form-horizontal" action="ServletUsers" method="get">
                                 <fieldset>
+                                    <div class="modal-header">
 
-                                    <legend>Modifier mon compte</legend>
-                                    <input type="hidden" id="login" name="login" value="${login}"/> 
-                                    <h3>Votre offre est la suivante : ${abo.nom} </h3>
+                                        <h4 class="modal-title">Modifier mon compte</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" id="login" name="login" value="${login}"/> 
+                                        <h3>Votre offre est la suivante : ${abo.nom} </h3>
+                                        <h3>Restant : ${delai} jours</h3>
 
 
 
 
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="abonnement">Abonnement :</label>
-                                        <div class="col-md-4">
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <div class="form-inline">
+                                            <label class=" control-label" for="abonnement">Abonnement :</label>
+
                                             <select id="abonnement" name="abonnement" class="form-control">
                                                 <option value="2">Week-end</option>
                                                 <option value="3">Semaine</option>
@@ -103,16 +110,11 @@
                                                 <option value="5">An</option>
                                                 <option value="6">Vie</option>
                                             </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-4">  
                                             <input type="hidden" name="action" value="modifierUtilisateur"/> 
                                             <button type="submit" name="submit"  class="btn btn-info">Modifier mon compte</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
-
                                 </fieldset>
                             </form> 
                         </div>
