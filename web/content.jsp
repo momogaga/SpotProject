@@ -33,20 +33,32 @@
 
         <c:if test="${login ne null}">
             <div class="row">   
-                <form class="form-inline" role="form">
-                    <div class="form-group">
-                        <select class="form-control">
-                            <option value="artiste">Artiste</option>
-                            <option value="morceau">Morceau</option>
 
-                        </select>
-                    </div>
-                    <div class="form-group">
+                <form class="form-inline" action="ServletMusic" method="get">
+                    <fieldset>
 
-                        <input type="text" class="form-control" placeholder="search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Rechercher</button>
-                </form>
+                        <div class="form-group">
+                            <input id="search" type="text" name="search" class="form-control" placeholder="Search">
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                <select id="type" name="type" class="form-control">
+                                    <option value="Artiste">Artiste</option>
+                                    <option value="Titre">Titre</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">  
+                                <input type="hidden" name="action" value="searchMusic"/> 
+                                <button type="submit" name="submit" class="btn btn-default">Rechercher</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form> 
 
                 <br>
 
@@ -89,7 +101,6 @@
                                     </tr>
                                 </c:forEach>  
                             </table>   
-
                             <div style="text-align: center">
                                 <ul class="pagination pagination-sm" style="margin: 0px;">  
                                     <c:if test="${currentPage != 1}">
@@ -114,7 +125,6 @@
                                         </c:if>  
                                 </ul>
                             </div>
-
                         </form>
                     </c:if>  
                 </div>   
@@ -155,8 +165,6 @@
                 </c:if>  
             </div>   
         </c:if>
-
-
 
     </body>
 </html>

@@ -26,6 +26,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class Morceau implements Serializable {
 
+    public static int getPrice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

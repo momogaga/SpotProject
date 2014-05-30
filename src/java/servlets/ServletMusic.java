@@ -43,6 +43,9 @@ public class ServletMusic extends HttpServlet {
         String forwardTo = "";
         String message = "";
 
+        String type = request.getParameter("type");
+        String search = request.getParameter("search");
+
         int page = 1;
         int elementsParPage = 10;
 
@@ -61,6 +64,20 @@ public class ServletMusic extends HttpServlet {
                 request.setAttribute("listMusic", liste);
                 request.setAttribute("noOfPages", numPage);
                 request.setAttribute("currentPage", page);
+
+                forwardTo = "index.jsp?action=listerMusic";
+                message = "Liste des musiques";
+            } else if (action.equals("searchMusic")) {
+                System.out.println(type + " - " + search);
+                Collection<Morceau> liste = gestionnaireMusiques.getMusicBy((page - 1) * elementsParPage,
+                        elementsParPage, type, search);
+
+                int elements = gestionnaireMusiques.getElements();
+                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
+
+                request.setAttribute("listMusic", liste);
+                request.setAttribute("noOfPages", 0);
+                request.setAttribute("currentPage", 1);
 
                 forwardTo = "index.jsp?action=listerMusic";
                 message = "Liste des musiques";
