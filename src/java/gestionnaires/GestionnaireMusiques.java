@@ -70,6 +70,14 @@ public class GestionnaireMusiques {
         Query q = em.createQuery("select m from Morceau m");
         return q.getResultList().size();
     }
+    
+    
+    public Morceau getMorceau(int id) {
+        Query q = em.createQuery("select m from Morceau m where m.id=:id");
+        q.setParameter("id", id);
+        Morceau m = (Morceau) q.getSingleResult();
+        return m;
+    }
 
     public void parse() throws IOException {
         Artiste a = null;
@@ -103,10 +111,4 @@ public class GestionnaireMusiques {
         }
     }
 
-    public Morceau getMorceau(int id) {
-        Query q = em.createQuery("select m from Morceau m where m.id=:id");
-        q.setParameter("id", id);
-        Morceau m = (Morceau) q.getSingleResult();
-        return m;
-    }
 }

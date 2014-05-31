@@ -399,7 +399,7 @@ kick.ogg
 snaretoms.ogg
 song.ogg
 
-Hey You - (The Exies):
+The Exies - Hey You:
 bass.ogg
 cymbals.ogg
 guitar.ogg

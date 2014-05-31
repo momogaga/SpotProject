@@ -58,8 +58,9 @@ public class SessionPanier extends HttpServlet {
             throws ServletException, IOException {
         String productCode = request.getParameter("productCode");
         String quantityString = request.getParameter("quantity");
-        System.out.println(productCode);
+        
         HttpSession session = request.getSession();
+        
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
             cart = new Cart();

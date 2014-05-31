@@ -24,7 +24,7 @@
             <c:forEach var="item" items="${cart.items}">
                 <tr valign="top">
                     <td>${item.morceau.titre}</td>
-                    <td>${item.morceau.artiste}</td>
+                    <td>${item.morceau.artiste.nom}</td>
                     <td>${item.morceau.prix}$</td>
                     <td>
                         <form action="SessionPanier">
