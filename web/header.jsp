@@ -127,3 +127,9 @@
 
     <h3 class="text-muted">Gestionnaire de musiques</h3>
 </div>
+
+<script type="text/javascript">
+    $('#myCompte').modal(options);
+    $('#myConnect').modal(options);
+    $('#myGestion').modal(options);
+</script>

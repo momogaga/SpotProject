@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
         <title>Gestionnaire de musique</title>  
 
-        
+
     </head>  
     <body> 
 
@@ -23,6 +23,9 @@
 
                 <form class="form-inline" action="ServletMusic" method="get">
                     <fieldset>
+                        <div class="form-group col-md-8">
+                            <a class="btn btn-default" href="ServletMusic?action=listerMusic">Afficher</a>
+                        </div>
 
                         <div class="form-group">
                             <input id="search" type="text" name="search" class="form-control" placeholder="Search">
@@ -37,11 +40,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-4">  
+                        <div class="form-group">                            
                                 <input type="hidden" name="action" value="searchMusic"/> 
-                                <button type="submit" name="submit" class="btn btn-default">Rechercher</button>
-                            </div>
+                                <button type="submit" name="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            
                         </div>
 
                     </fieldset>
@@ -50,7 +52,7 @@
                 <br>
 
                 <div class="tab-pane active">
-                    <a href="ServletMusic?action=listerMusic">Afficher la liste des musiques</a>
+
 
                     <c:if test="${(param.action == 'listerMusic') && (abo.nom == 'Gratuit')}" >  
                         <form action="ServletMusic" method="get"> 
@@ -72,7 +74,7 @@
                                         <td>${m.titre}</td> 
                                         <td>${m.artiste.nom}</td>
                                         <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
-                                        <td><button type="button" class="btn btn-warning btn-xs" onclick="self.location.href='/SpotProject/SessionPanier?productCode=${m.id}'"><span class="glyphicon glyphicon-euro"></span></button></td>
+                                        <td><button type="button" class="btn btn-warning btn-xs" onclick="self.location.href = '/SpotProject/SessionPanier?productCode=${m.id}'"><span class="glyphicon glyphicon-euro"></span></button></td>
                                     </tr>   
                                     <tr>
                                         <td colspan="5">

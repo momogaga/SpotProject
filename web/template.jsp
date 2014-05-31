@@ -44,12 +44,6 @@
             });
         </script> 
 
-
-        <script type="text/javascript">
-            $('#myCompte').modal(options);
-            $('#myConnect').modal(options);
-            $('#myGestion').modal(options);
-        </script>
         <script type="text/javascript">
             var checker = document.getElementById('check');
 
