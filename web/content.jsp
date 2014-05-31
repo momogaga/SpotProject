@@ -14,20 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
         <title>Gestionnaire de musique</title>  
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $("#report tr:odd").addClass("odd");
-                $("#report tr:not(.odd)").hide();
-                $("#report tr:first-child").show();
-
-                $("#report tr.odd").click(function() {
-                    $(this).next("tr").toggle();
-                    $(this).find(".arrow").toggleClass("up");
-                });
-                //$("#report").jExpand();
-            });
-        </script>  
+        
     </head>  
     <body> 
 
@@ -81,11 +68,11 @@
 
                                     <tr class="${status.index%2==0 ? 'alt' : ''}"> 
 
-                                        <td><span class="glyphicon glyphicon-play-circle"></span></td>
+                                        <td><span class="glyphicon glyphicon-play-circle"></span></td>                   
                                         <td>${m.titre}</td> 
                                         <td>${m.artiste.nom}</td>
                                         <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
-                                        <td><button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-euro"></span></button></td>
+                                        <td><button type="button" class="btn btn-warning btn-xs" onclick="self.location.href='/SpotProject/SessionPanier?productCode=${m.id}'"><span class="glyphicon glyphicon-euro"></span></button></td>
                                     </tr>   
                                     <tr>
                                         <td colspan="5">

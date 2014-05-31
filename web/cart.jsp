@@ -4,25 +4,30 @@
 
 <html>
     <head>
-        <title>Java Servlets and JSP</title>
+        <title>ShoppingCart</title>
+        <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.min.css">
+
+
     </head>
     <body>
 
-        <h1>Your cart</h1>
+        <h1>Votre panier</h1>
 
-        <table border="1" cellpadding="5">
+        <table class="table table-striped">
             <tr>
-                <th>Artiste</th>
                 <th>Titre</th>
-                <th>Price</th>
+                <th>Artiste</th>
+                <th>Prix</th>
+                <th></th>
             </tr>
 
             <c:forEach var="item" items="${cart.items}">
                 <tr valign="top">
                     <td>${item.morceau.titre}</td>
+                    <td>${item.morceau.artiste}</td>
                     <td>${item.morceau.prix}$</td>
                     <td>
-                        <form action="cart">
+                        <form action="SessionPanier">
                             <input type="hidden" name="productCode" value="${item.morceau.id}">
                             <input type="hidden" name="quantity" value="0"> 
                             <input type="submit" value="Remove Item">
@@ -35,8 +40,9 @@
 
         <br>
 
-        <form action="<c:url value='/index.jsp' />" method="post"><input
-                type="submit" value="Continue Shopping"></form>
+        <form action="<c:url value='/index.jsp' />" method="post">
+            <button type="submit">Continue Shopping</button>
+        </form>
 
     </body>
 </html>

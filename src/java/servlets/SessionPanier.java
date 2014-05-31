@@ -24,7 +24,7 @@ import modeles.musique.Morceau;
  *
  * @author MoMo
  */
-@WebServlet(name = "SessionPanier", urlPatterns = {"/cart"})
+@WebServlet(name = "SessionPanier", urlPatterns = {"/SessionPanier"})
 public class SessionPanier extends HttpServlet {
 
     @EJB

@@ -29,6 +29,22 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js" ></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#report tr:odd").addClass("odd");
+                $("#report tr:not(.odd)").hide();
+                $("#report tr:first-child").show();
+
+                $("#report tr.odd").click(function() {
+                    $(this).next("tr").toggle();
+                    $(this).find(".arrow").toggleClass("up");
+                });
+                //$("#report").jExpand();
+            });
+        </script> 
+
+
         <script type="text/javascript">
             $('#myCompte').modal(options);
             $('#myConnect').modal(options);
