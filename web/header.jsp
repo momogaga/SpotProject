@@ -129,7 +129,7 @@
         </c:if> 
     </div>
 
-    <h3 class="text-muted">Gestionnaire de musiques</h3>
+    <h3 class="text-muted">Multitracksongs</h3>
 </div>
 
 <script type="text/javascript">

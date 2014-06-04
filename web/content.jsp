@@ -12,7 +12,7 @@
 <html>
     <head>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-        <title>Gestionnaire de musique</title>  
+        <title>Multitracksongs</title>  
 
     </head>  
     <body> 
@@ -250,7 +250,6 @@
                                 <th width="10px"><span class='glyphicon glyphicon-music'></span></th>
                                 <th>Titre</th>
                                 <th>Artiste</th>
-                                <th>Année</th>
                                 <th width="100px"><span class='glyphicon glyphicon-globe'></span> Wiki</th>
                             </tr>
                             <c:forEach var="m" items="${listMusic}" varStatus="status"  begin="0" end="2">  
@@ -258,7 +257,6 @@
                                     <td><a href="#"><span class="glyphicon glyphicon-play-circle"></span></a></td>
                                     <td>${m.titre}</td> 
                                     <td>${m.artiste.nom}</td>
-                                    <td>${m.annee}</td>
                                     <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
                                 </tr>  
 

@@ -16,6 +16,8 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
 
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css" />  
+        
+        <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/favicon.ico" />
     </head>  
 
     <body>
