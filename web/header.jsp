@@ -2,8 +2,8 @@
 <div class="header">
     <div>  
         <c:if test="${empty login}">
-            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myConnect">Connectez-vous</button> 
-            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myCompte">Créer un compte</button>
+            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myConnect">Log in</button> 
+            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myCompte">Sign in</button>
 
             <div class="modal fade" id="myConnect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -19,7 +19,7 @@
                                 </div>
 
                                 <input type="hidden" name="action" value="logUser"/>  
-                                <button type="submit" name="submit" class="btn btn-default">Connexion</button>
+                                <button type="submit" name="submit" class="btn btn-default">Log in</button>
 
                             </form>
                         </div>
@@ -35,7 +35,7 @@
                             <form class="form-horizontal" action="ServletUsers" method="get">
                                 <fieldset>
 
-                                    <legend>Créer un compte</legend>
+                                    <legend>Sign up</legend>
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="login">Login :</label>  
@@ -47,14 +47,14 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="password">Password :</label>  
                                         <div class="col-md-4">
-                                            <input id="password" name="password" type="text" placeholder="" class="form-control input-md" required="">
+                                            <input id="password" name="password" type="password" placeholder="" class="form-control input-md" required="">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-md-4">  
                                             <input type="hidden" name="action" value="creerUtilisateur"/> 
-                                            <button type="submit" name="submit"  class="btn btn-info">Créer mon compte</button>
+                                            <button type="submit" name="submit"  class="btn btn-info">Sign up</button>
                                         </div>
                                     </div>
 
@@ -67,16 +67,20 @@
 
         </c:if>
         <c:if test="${login ne null}">
+            <div class="form-inline">
 
-            <div class="form-group">
-                <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myGestion" style="margin-top: 8px;" >Modifier mon compte</button>
-            </div>
-            <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">
-                <div class="form-group">
+                <button class="btn btn-info navbar-right" data-toggle="modal" data-target="/cart.jsp" style="margin-top: 8px;" >Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#myGestion" style="margin-top: 8px; margin-right: 5px;" >Account <span class="glyphicon glyphicon-cog"></span></button>
+
+                <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">
+
                     <label>Bienvenue à ${login} !</label>
-                    <button type="submit" name="submit" class="btn btn-default">Déconnexion</button>
-                </div>
-            </form>
+                    <button type="submit" name="submit" class="btn btn-success" style="margin-right: 5px;">Logout <span class="glyphicon glyphicon-off"></span></button>
+
+                </form>
+
+            </div>
 
             <div class="modal fade" id="myGestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
