@@ -105,8 +105,8 @@
                                     </div>
                                     <div class="modal-footer">
 
-                                        <div class="form-inline">
-                                            <label class=" control-label" for="abonnement">Abonnement :</label>
+                                        <div class="form-inline" style="text-align: center">
+                                            <label class=" control-label" for="abonnement" style="font-size: 16px">Abonnement :</label>
 
                                             <select id="abonnement" name="abonnement" class="form-control">
                                                 <option value="2">Week-end</option>

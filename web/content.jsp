@@ -179,7 +179,9 @@
 
                                         <td><a href="#"><span style="color:rgb(0, 204, 0);" class="glyphicon glyphicon-play-circle"></span></a></td>
                                         <td>${m.titre}</td> 
-                                        <td>${m.artiste.nom}</td>
+                                        <td>
+                                            <a href='ServletMusic?action=searchFacette&facette=${m.artiste.nom}'> ${m.artiste.nom}</a>
+                                        </td>
                                         <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
                                     </tr>   
                                     <tr>
