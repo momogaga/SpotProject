@@ -6,8 +6,10 @@
 package servlets;
 
 import gestionnaires.GestionnaireMusiques;
+import gestionnaires.GestionnaireUtilisateurs;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modeles.musique.Morceau;
 
 /**
@@ -26,6 +29,9 @@ public class ServletMusic extends HttpServlet {
 
     @EJB
     private GestionnaireMusiques gestionnaireMusiques;
+
+    @EJB
+    private GestionnaireUtilisateurs gestionnaireUtilisateurs;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,6 +49,10 @@ public class ServletMusic extends HttpServlet {
         String forwardTo = "";
         String message = "";
 
+        HttpSession session = request.getSession();
+        String login = (String) session.getAttribute("login");
+
+        System.out.println(login);
         String type = request.getParameter("type");
         String search = request.getParameter("search");
         String facette = request.getParameter("facette");
@@ -95,6 +105,16 @@ public class ServletMusic extends HttpServlet {
 
                 forwardTo = "index.jsp?action=listerMusic";
                 message = "Liste des musiques";
+
+            } else if (action.equals("listerAchats")) {
+
+                Set<Morceau> liste = gestionnaireUtilisateurs.getAchetes(login);
+
+                request.setAttribute("listAchat", liste);
+
+                forwardTo = "index.jsp?action=listerAchats";
+                message = "Liste des musiques";
+
             } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";

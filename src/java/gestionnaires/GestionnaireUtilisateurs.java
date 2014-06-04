@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -169,5 +170,11 @@ public class GestionnaireUtilisateurs {
         Utilisateur u = chercherUnUtilisateurParLogin(login);
         u.addMorceauAchetes(morceau);
         em.merge(u);
+    }
+
+    public Set<Morceau> getAchetes(String login) {
+        Utilisateur u = chercherUnUtilisateurParLogin(login);
+
+        return u.getMorceauxAchetes();
     }
 }
