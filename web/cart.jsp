@@ -44,12 +44,15 @@
 
                 <br>
 
-                <form action="<c:url value='/ServletMusic?action=listerMusic' />" method="post">
-                    <button class="btn btn-info"type="submit">Continue Shopping</button>
-                </form>
-                <form action="<c:url value='/ServletMusic?action=listerMusic' />" method="post">
-                    <button class="btn btn-success"type="submit">Checkout</button>
-                </form>
+
+                <div class="btn-group pull-right">
+                    <form action="<c:url value='/ServletMusic?action=listerMusic' />" method="post">
+                        <button class="btn btn-default"type="submit">Continue Shopping</button>
+                    </form>
+                    <form action="<c:url value='/ServletMusic?action=listerMusic' />" method="post">
+                        <button class="btn btn-default"type="submit">Checkout <span class="glyphicon glyphicon-euro"></span></button>
+                    </form>
+                </div>
             </div>
 
             <jsp:include page="footer.jsp"/>  

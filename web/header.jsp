@@ -3,7 +3,7 @@
     <div>  
         <c:if test="${empty login}">
             <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myConnect">Log in</button> 
-            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myCompte">Sign in</button>
+            <button class="btn btn-default navbar-right" style="margin-right: 5px" data-toggle="modal" data-target="#myCompte">Sign in</button>
 
             <div class="modal fade" id="myConnect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -68,7 +68,7 @@
         </c:if>
         <c:if test="${login ne null}">
             <div class="form-inline">
-                <a class="btn btn-info navbar-right" data-toggle="modal" href="/SpotProject/cart.jsp" style="margin-top: 8px;" >Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                <a class="btn btn-info navbar-right" data-toggle="modal" href="/SpotProject/cart.jsp" style="margin-top: 8px; color:#fff" >Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
                 <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#myGestion" style="margin-top: 8px; margin-right: 5px;" >Account <span class="glyphicon glyphicon-cog"></span></button>
 
                 <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">
