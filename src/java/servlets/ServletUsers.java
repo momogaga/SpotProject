@@ -60,6 +60,7 @@ public class ServletUsers extends HttpServlet {
             } else if (action.equals("modifierUtilisateur")) {
                 HttpSession session = request.getSession();
                 gestionnaireUtilisateurs.modifierUtilisateur(login, Integer.parseInt(abonnement));
+                session.setAttribute("delai", gestionnaireUtilisateurs.getRestant(login));
                 forwardTo = "index.jsp?";
                 message = "Liste des utilisateurs";
                 session.setAttribute("abo", gestionnaireUtilisateurs.getAbonnementUtilisateur(login));
