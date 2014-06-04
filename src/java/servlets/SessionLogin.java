@@ -71,6 +71,8 @@ public class SessionLogin extends HttpServlet {
         Boolean isUser = gestionnaireUtilisateurs.isUser(login, password);
 
         if (isUser == true) {
+
+            gestionnaireUtilisateurs.checkAbonnement(login);
             HttpSession session = request.getSession();
             session.setAttribute("login", login);
             session.setAttribute("abo", gestionnaireUtilisateurs.getAbonnementUtilisateur(login));

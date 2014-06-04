@@ -70,8 +70,7 @@ public class GestionnaireMusiques {
         Query q = em.createQuery("select m from Morceau m");
         return q.getResultList().size();
     }
-    
-    
+
     public Morceau getMorceau(int id) {
         Query q = em.createQuery("select m from Morceau m where m.id=:id");
         q.setParameter("id", id);
@@ -84,7 +83,8 @@ public class GestionnaireMusiques {
         Morceau m = null;
         Piste p = null;
 
-        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\GAIECH\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
+        //InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\GAIECH\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
+        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\Bastien\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
         BufferedReader buff = new BufferedReader(lecture);
         String ligne;
 
