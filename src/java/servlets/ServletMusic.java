@@ -77,7 +77,7 @@ public class ServletMusic extends HttpServlet {
                 request.setAttribute("currentPage", page);
 
                 forwardTo = "index.jsp?action=listerMusic";
-                message = "Liste des musiques";
+                message = "";
             } else if (action.equals("searchMusic")) {
                 Collection<Morceau> liste = gestionnaireMusiques.getMusicBy((page - 1) * elementsParPage,
                         elementsParPage, type, search);
@@ -90,7 +90,7 @@ public class ServletMusic extends HttpServlet {
                 request.setAttribute("currentPage", 1);
 
                 forwardTo = "index.jsp?action=listerMusic";
-                message = "Liste des musiques";
+                message = "";
 
             } else if (action.equals("searchFacette")) {
                 Collection<Morceau> liste = gestionnaireMusiques.getMusicBy((page - 1) * elementsParPage,
@@ -104,7 +104,7 @@ public class ServletMusic extends HttpServlet {
                 request.setAttribute("currentPage", 1);
 
                 forwardTo = "index.jsp?action=listerMusic";
-                message = "Liste des musiques";
+                message = "";
 
             } else if (action.equals("listerAchats")) {
 
@@ -113,7 +113,7 @@ public class ServletMusic extends HttpServlet {
                 request.setAttribute("listAchat", liste);
 
                 forwardTo = "index.jsp?action=listerAchats";
-                message = "Liste des musiques";
+                message = "";
 
             } else {
                 forwardTo = "index.jsp?action=todo";

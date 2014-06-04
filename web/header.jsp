@@ -2,24 +2,27 @@
 <div class="header">
     <div>  
         <c:if test="${empty login}">
-            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myConnect">Log in</button> 
-            <button class="btn btn-default navbar-right" style="margin-right: 5px" data-toggle="modal" data-target="#myCompte">Sign in</button>
+            <button class="btn btn-default navbar-right" data-toggle="modal" data-target="#myConnect"><span class="glyphicon glyphicon-log-in"></span> Log in</button> 
+            <button class="btn btn-default navbar-right" style="margin-right: 5px" data-toggle="modal" data-target="#myCompte"><span class="glyphicon glyphicon-new-window"></span> Sign in</button>
 
             <div class="modal fade" id="myConnect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Log in</h4>
+                        </div>
                         <div class="modal-body">
 
-                            <form action="SessionLogin" method="post" class="navbar-form" role="form">
+                            <form action="SessionLogin" method="post" class="navbar-form" role="form"  style="text-align: center">
                                 <div class="form-group">
                                     <input type="text" placeholder="Login" class="form-control" name="log" required="true">
-                                </div>
-                                <div class="form-group">
+                               
                                     <input type="password" placeholder="Password" class="form-control" name="pass" required="true">
                                 </div>
 
                                 <input type="hidden" name="action" value="logUser"/>  
-                                <button type="submit" name="submit" class="btn btn-default">Log in</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Log in</button>
 
                             </form>
                         </div>
@@ -30,12 +33,14 @@
             <div class="modal fade" id="myCompte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Sign up</h4>
+                        </div>
                         <div class="modal-body">
 
                             <form class="form-horizontal" action="ServletUsers" method="get">
                                 <fieldset>
-
-                                    <legend>Sign up</legend>
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="login">Login :</label>  
@@ -88,7 +93,7 @@
                             <form class="form-horizontal" action="ServletUsers" method="get">
                                 <fieldset>
                                     <div class="modal-header">
-
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         <h4 class="modal-title">Modifier mon compte</h4>
                                     </div>
                                     <div class="modal-body">
@@ -96,9 +101,6 @@
                                         <h3>Votre abonnement : "${abo.nom}" </h3>
                                         <h3>Prix de l'offre : ${abo.prix} &euro;</h3>
                                         <h3>Restant : ${delai} jours</h3>
-
-
-
 
                                     </div>
                                     <div class="modal-footer">
@@ -115,7 +117,7 @@
                                             </select>
                                             <input type="hidden" name="action" value="modifierUtilisateur"/> 
                                             <button type="submit" name="submit"  class="btn btn-info">Modifier mon compte</button>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                                         </div>
                                     </div>
                                 </fieldset>

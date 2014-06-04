@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <title>ShoppingCart</title>
+        <title>Gestionnaire de musique</title>
         <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.min.css">
 
         <link rel="stylesheet" type="text/css" href="resources/style.css" />  
@@ -15,7 +15,7 @@
 
             <jsp:include page="header.jsp"/>  
             <div class="row"> 
-                <h2>Votre panier</h2>
+                <h3><span class='glyphicon glyphicon-shopping-cart'></span> Shopping cart</h3>
 
                 <table class="table table-striped">
                     <tr>
@@ -24,7 +24,7 @@
                         <th>Prix</th>
                         <th></th>
                     </tr>
-
+                    <c:set var="total" value="0"/>  
                     <c:forEach var="item" items="${cart.items}">
                         <tr valign="top">
                             <td>${item.morceau.titre}</td>
@@ -37,9 +37,15 @@
                                     <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"</button>
                                 </form>
                             </td>
+                            <c:set var="total" value="${total+item.morceau.prix}"/>  
                         </tr>
                     </c:forEach>
-
+                    <tr>
+                        <td><b>TOTAL</b></td>
+                        <td></td>
+                        <td><b>${total}$</b></td>
+                        <td></td>
+                    </tr>
                 </table>
 
                 <br>

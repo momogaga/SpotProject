@@ -22,6 +22,11 @@
 
                 <form class="form-inline" action="ServletMusic" method="get">
                     <fieldset>
+                        <c:if test="${!empty param['message']}"> 
+                            <div class="container" style="text-align: center; color:rgb(0, 204, 0); font-size: 18px">
+                                <p><span class="glyphicon glyphicon-ok"></span> ${param.message}</p>
+                            </div>
+                        </c:if>  
                         <div class="form-group col-md-8">
                             <a class="btn btn-default" href="ServletMusic?action=listerMusic">Afficher tout</a>
                             <a class="btn btn-default" href="ServletMusic?action=listerAchats">Afficher mes achats</a>
@@ -221,9 +226,16 @@
             </div>
         </c:if> 
         <c:if test="${empty login}">
-
-            <a href="ServletMusic?action=listerMusic"><h3>Testez trois morceaux gratuits !</h3></a>
-
+            <div class="container" style="font-size: 20px">
+                <a href="ServletMusic?action=listerMusic"><span class='glyphicon glyphicon-random'></span> Testez trois morceaux gratuits !</a>
+            </div>
+            <div>
+                <c:if test="${!empty param['message']}"> 
+                    <div class="container" style="font-size: 18px; text-align: center; color:rgb(0, 204, 0);">
+                        <p><span class="glyphicon glyphicon-ok"></span> ${param.message}</p>
+                    </div>
+                </c:if>  
+            </div>
             <div class="tab-pane active">
                 <br>
 

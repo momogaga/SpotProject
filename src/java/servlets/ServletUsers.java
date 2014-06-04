@@ -56,23 +56,23 @@ public class ServletUsers extends HttpServlet {
             } else if (action.equals("creerUtilisateur")) {
                 gestionnaireUtilisateurs.creerUtilisateur(login, password);
                 forwardTo = "index.jsp?";
-                message = "Liste des utilisateurs";
+                message = "Compte crée";
             } else if (action.equals("modifierUtilisateur")) {
                 HttpSession session = request.getSession();
                 gestionnaireUtilisateurs.modifierUtilisateur(login, Integer.parseInt(abonnement));
                 session.setAttribute("delai", gestionnaireUtilisateurs.getRestant(login));
                 forwardTo = "index.jsp?";
-                message = "Liste des utilisateurs";
+                message = "Abonnement réussi";
                 session.setAttribute("abo", gestionnaireUtilisateurs.getAbonnementUtilisateur(login));
             } else if (action.equals("afficherUtilisateur")) {
                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.afficherUtilisateur();
                 request.setAttribute("listUsers", liste);
                 forwardTo = "index.jsp?action=afficherUtilisateur";
-                message = "Liste des utilisateurs";
+                message = "";
             } else if (action.equals("chercherUtilisateur")) {
                 gestionnaireUtilisateurs.chercherUnUtilisateurParLogin(login);
                 forwardTo = "index.jsp?action=afficherUtilisateur";
-                message = "Liste des utilisateurs";
+                message = "";
             } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
