@@ -52,12 +52,12 @@ public class GestionnaireMusiques {
         Query q = em.createQuery("select m from Morceau m");
 
         if (type.equals("Titre")) {
-            q = em.createQuery("select m from Morceau m where m.titre=:titre order by m.titre asc");
-            q.setParameter("titre", search);
+            q = em.createQuery("select m from Morceau m where lower(m.titre) LIKE lower(:titre) order by m.titre asc");
+            q.setParameter("titre", "%" + search + "%");
         }
         if (type.equals("Artiste")) {
-            q = em.createQuery("select m from Morceau m where m.artiste.nom=:artiste order by m.titre asc");
-            q.setParameter("artiste", search);
+            q = em.createQuery("select m from Morceau m where lower(m.artiste.nom) LIKE lower(:artiste) order by m.titre asc");
+            q.setParameter("artiste", "%" + search + "%");
         }
 
         q.setFirstResult(decalage);
