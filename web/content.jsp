@@ -14,7 +14,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
         <title>Gestionnaire de musique</title>  
 
-
     </head>  
     <body> 
 
@@ -41,9 +40,9 @@
                         </div>
 
                         <div class="form-group">                            
-                                <input type="hidden" name="action" value="searchMusic"/> 
-                                <button type="submit" name="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                            
+                            <input type="hidden" name="action" value="searchMusic"/> 
+                            <button type="submit" name="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+
                         </div>
 
                     </fieldset>
@@ -72,7 +71,9 @@
 
                                         <td><span class="glyphicon glyphicon-play-circle"></span></td>                   
                                         <td>${m.titre}</td> 
-                                        <td>${m.artiste.nom}</td>
+                                        <td>
+                                            <a href='ServletMusic?action=searchFacette&facette=${m.artiste.nom}'> ${m.artiste.nom}</a>
+                                        </td>
                                         <td> <a href="http://fr.wikipedia.org/wiki/${m.artiste.nom}" target="_blank">See!</a></td>
                                         <td><button type="button" class="btn btn-warning btn-xs" onclick="self.location.href = '/SpotProject/SessionPanier?productCode=${m.id}'"><span class="glyphicon glyphicon-euro"></span></button></td>
                                     </tr>   

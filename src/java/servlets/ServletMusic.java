@@ -45,6 +45,7 @@ public class ServletMusic extends HttpServlet {
 
         String type = request.getParameter("type");
         String search = request.getParameter("search");
+        String facette = request.getParameter("facette");
 
         int page = 1;
         int elementsParPage = 10;
@@ -68,7 +69,6 @@ public class ServletMusic extends HttpServlet {
                 forwardTo = "index.jsp?action=listerMusic";
                 message = "Liste des musiques";
             } else if (action.equals("searchMusic")) {
-                System.out.println(type + " - " + search);
                 Collection<Morceau> liste = gestionnaireMusiques.getMusicBy((page - 1) * elementsParPage,
                         elementsParPage, type, search);
 
@@ -82,6 +82,19 @@ public class ServletMusic extends HttpServlet {
                 forwardTo = "index.jsp?action=listerMusic";
                 message = "Liste des musiques";
 
+            } else if (action.equals("searchFacette")) {
+                Collection<Morceau> liste = gestionnaireMusiques.getMusicBy((page - 1) * elementsParPage,
+                        elementsParPage, "Artiste", facette);
+
+                int elements = gestionnaireMusiques.getElements();
+                int numPage = (int) Math.ceil(elements * 1.0 / elementsParPage);
+
+                request.setAttribute("listMusic", liste);
+                request.setAttribute("noOfPages", 0);
+                request.setAttribute("currentPage", 1);
+
+                forwardTo = "index.jsp?action=listerMusic";
+                message = "Liste des musiques";
             } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
