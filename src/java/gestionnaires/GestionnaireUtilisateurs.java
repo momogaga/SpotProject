@@ -15,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import modeles.musique.Morceau;
 import modeles.utilisateur.Abonnement;
 import modeles.utilisateur.Utilisateur;
 import org.joda.time.DateTime;
@@ -119,14 +120,10 @@ public class GestionnaireUtilisateurs {
     public Date getDateDeFin(String login) {
         Date dateFin = null;
         Utilisateur u = chercherUnUtilisateurParLogin(login);
-        // SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Date debut = u.getDateDebutAbo();
-        //System.out.println("debut abo : " + debut.toString());
 
-        // dateFin = debut + u.getAbonnement().getDuree();
         dateFin = new Date(debut.getTime() + TimeUnit.DAYS.toMillis(u.getAbonnement().getDuree()));
-        // System.out.println("date de fin : " + dateFin.toString());
 
         return dateFin;
     }
@@ -134,20 +131,20 @@ public class GestionnaireUtilisateurs {
     public int getRestant(String login) {
 
         Date fin = getDateDeFin(login);
-        System.out.println("fin date :" + fin.toString());
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(fin);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH) + 1;
-        System.out.println(month);
+
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
         DateTime dt1 = new DateTime(year, month, day, 0, 0);
-        System.out.println("fin : " + dt1.toString());
+
         DateTime dt2 = DateTime.now();
-        System.out.println("oji : " + dt2.toString());
+
         int days = Days.daysBetween(dt2, dt1).getDays();
-        System.out.println("jours restant : " + days);
+
         return days;
     }
 
@@ -166,6 +163,11 @@ public class GestionnaireUtilisateurs {
                 u.setAbonnement(a);
             }
         }
+    }
 
+    public void checkoutMusic(String login, Morceau morceau) {
+        Utilisateur u = chercherUnUtilisateurParLogin(login);
+        u.addMorceauAchetes(morceau);
+        em.merge(u);
     }
 }

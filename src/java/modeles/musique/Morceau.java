@@ -16,8 +16,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import modeles.utilisateur.Utilisateur;
 
 /**
  *
@@ -37,10 +39,10 @@ public class Morceau implements Serializable {
     private String titre;
     private String annee;
     private double prix;
-      
+
     @OneToOne(cascade = {CascadeType.ALL})
     private Artiste artiste;
-    
+
     @OneToMany(cascade = {CascadeType.ALL})
     private Set<Piste> pistes;
 
@@ -52,7 +54,7 @@ public class Morceau implements Serializable {
         this.annee = annee;
         this.artiste = artiste;
         this.prix = prix;
-        this.pistes = new HashSet<>();
+        this.pistes = new HashSet();
     }
 
     public int getId() {
@@ -85,7 +87,7 @@ public class Morceau implements Serializable {
 
     public void setArtiste(Artiste artiste) {
         this.artiste = artiste;
-    }    
+    }
 
     public double getPrix() {
         return prix;
@@ -94,7 +96,7 @@ public class Morceau implements Serializable {
     public void setPrix(double prix) {
         this.prix = prix;
     }
-    
+
     public Set<Piste> getPistes() {
         return pistes;
     }
@@ -106,7 +108,7 @@ public class Morceau implements Serializable {
     public void addPiste(Piste p) {
         this.pistes.add(p);
     }
-    
+
     @Override
     public String toString() {
         return "Morceau : " + titre + "," + annee;

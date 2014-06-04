@@ -23,7 +23,7 @@
                 <form class="form-inline" action="ServletMusic" method="get">
                     <fieldset>
                         <div class="form-group col-md-8">
-                            <a class="btn btn-default" href="ServletMusic?action=listerMusic">Afficher</a>
+                            <a class="btn btn-default" href="ServletMusic?action=listerMusic">Afficher tout</a>
                         </div>
 
                         <div class="form-group">

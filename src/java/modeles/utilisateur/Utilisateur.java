@@ -8,13 +8,17 @@ package modeles.utilisateur;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
+import modeles.musique.Morceau;
 
 /**
  *
@@ -34,7 +38,10 @@ public class Utilisateur implements Serializable {
 
     @OneToOne(cascade = {CascadeType.ALL})
     private Abonnement abonnement;
-
+    
+    @ManyToMany(cascade = {CascadeType.ALL})
+    private Set<Morceau> morceauxAchetes;
+    
     public Utilisateur() {
     }
 
@@ -45,6 +52,7 @@ public class Utilisateur implements Serializable {
         Calendar cal = Calendar.getInstance();
 
         this.dateDebutAbo = cal.getTime();
+        this.morceauxAchetes = new HashSet();
     }
 
     public void setDateDebutAbo(Date dateDebutAbo) {
@@ -77,6 +85,18 @@ public class Utilisateur implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Morceau> getMorceauxAchetes() {
+        return morceauxAchetes;
+    }
+
+    public void setMorceauxAchetes(Set<Morceau> morceauxAchetes) {
+        this.morceauxAchetes = morceauxAchetes;
+    }
+    
+    public void addMorceauAchetes(Morceau m){
+        this.morceauxAchetes.add(m);
     }
 
     @Override

@@ -5,11 +5,12 @@
  */
 package servlets;
 
-import gestionnaires.GestionnaireMusiques;
+import gestionnaires.GestionnaireUtilisateurs;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,17 +19,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modeles.achat.Cart;
 import modeles.achat.Item;
-import modeles.musique.Morceau;
+import modeles.utilisateur.Utilisateur;
 
 /**
  *
  * @author MoMo
  */
-@WebServlet(name = "SessionPanier", urlPatterns = {"/SessionPanier"})
-public class SessionPanier extends HttpServlet {
+@WebServlet(name = "Checkout", urlPatterns = {"/Checkout"})
+public class Checkout extends HttpServlet {
 
     @EJB
-    private GestionnaireMusiques gestionnaireMusique;
+    GestionnaireUtilisateurs gestionnaireUtilisateur;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +42,23 @@ public class SessionPanier extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
 
+        Cart cart = (Cart) session.getAttribute("cart");
+        String login = (String) session.getAttribute("login");
+
+        ArrayList<Item> listeItem = cart.getItems();
+        for (Item item : listeItem) {
+            gestionnaireUtilisateur.checkoutMusic(login, item.getMorceau());
+        }
+        
+        session.removeAttribute("cart");
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cart.jsp");
+        dispatcher.forward(request, response);
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -56,42 +70,7 @@ public class SessionPanier extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String productCode = request.getParameter("productCode");
-        String quantityString = request.getParameter("quantity");
-
-        HttpSession session = request.getSession();
-
-        Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-        }
-
-        //if the user enters a negative or invalid quantity,
-        //the quantity is automatically reset to 1.
-        int quantity = 1;
-        try {
-            quantity = Integer.parseInt(quantityString);
-            if (quantity < 0) {
-                quantity = 1;
-            }
-        } catch (NumberFormatException nfe) {
-            quantity = 1;
-        }
-
-        Morceau morceau = gestionnaireMusique.getMorceau(Integer.parseInt(productCode));
-
-        Item lineItem = new Item();
-        lineItem.setMorceau(morceau);
-        lineItem.setQuantity(quantity);
-        if (quantity > 0) {
-            cart.addItem(lineItem);
-        } else if (quantity == 0) {
-            cart.removeItem(lineItem);
-        }
-       
-        session.setAttribute("cart", cart);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cart.jsp");
-        dispatcher.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -105,9 +84,7 @@ public class SessionPanier extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
-
     }
 
     /**

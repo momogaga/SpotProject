@@ -83,8 +83,8 @@ public class GestionnaireMusiques {
         Morceau m = null;
         Piste p = null;
 
-        //InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\GAIECH\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
-        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\Bastien\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
+        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\GAIECH\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
+        //InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\Bastien\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
         BufferedReader buff = new BufferedReader(lecture);
         String ligne;
 
