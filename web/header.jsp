@@ -68,9 +68,7 @@
         </c:if>
         <c:if test="${login ne null}">
             <div class="form-inline">
-
-                <button class="btn btn-info navbar-right" data-toggle="modal" data-target="/cart.jsp" style="margin-top: 8px;" >Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
-
+                <a class="btn btn-info navbar-right" data-toggle="modal" href="/SpotProject/cart.jsp" style="margin-top: 8px;" >Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
                 <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#myGestion" style="margin-top: 8px; margin-right: 5px;" >Account <span class="glyphicon glyphicon-cog"></span></button>
 
                 <form action="Deconnecte" method="get" class="navbar-form navbar-right" role="form">

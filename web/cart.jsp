@@ -30,11 +30,11 @@
                             <td>${item.morceau.titre}</td>
                             <td>${item.morceau.artiste.nom}</td>
                             <td>${item.morceau.prix}$</td>
-                            <td>
+                            <td style="text-align: right">
                                 <form action="SessionPanier">
                                     <input type="hidden" name="productCode" value="${item.morceau.id}">
                                     <input type="hidden" name="quantity" value="0"> 
-                                    <button class="btn btn-danger" type="submit">Remove Item</button>
+                                    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"</button>
                                 </form>
                             </td>
                         </tr>
@@ -44,8 +44,11 @@
 
                 <br>
 
-                <form action="<c:url value='/index.jsp' />" method="post">
+                <form action="<c:url value='/ServletMusic?action=listerMusic' />" method="post">
                     <button class="btn btn-info"type="submit">Continue Shopping</button>
+                </form>
+                <form action="<c:url value='/ServletMusic?action=listerMusic' />" method="post">
+                    <button class="btn btn-success"type="submit">Checkout</button>
                 </form>
             </div>
 
