@@ -54,7 +54,7 @@ public class Checkout extends HttpServlet {
         
         session.removeAttribute("cart");
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cart.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServletMusic?action=listerMusic");
         dispatcher.forward(request, response);
     }
 
