@@ -33,7 +33,8 @@ public class CreationBD implements ServletContextListener {
         //gm.creerMusiqueTest();
         
         try {
-            gm.parse();
+            String path = sce.getServletContext().getRealPath("/resources/data/liste.txt");
+            gm.parse(path);
         } catch (IOException ex) {
             Logger.getLogger(CreationBD.class.getName()).log(Level.SEVERE, null, ex);
         }

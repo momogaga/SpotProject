@@ -78,13 +78,13 @@ public class GestionnaireMusiques {
         return m;
     }
 
-    public void parse() throws IOException {
+    public void parse(String path) throws IOException {
         Artiste a = null;
         Morceau m = null;
         Piste p = null;
 
-        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\GAIECH\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
-//        InputStreamReader lecture = new InputStreamReader(new FileInputStream("C:\\Users\\Bastien\\Documents\\NetBeansProjects\\SpotProject\\web\\resources\\data\\liste.txt"));
+        /* Modifier ici votre path */
+        InputStreamReader lecture = new InputStreamReader(new FileInputStream(path));
         BufferedReader buff = new BufferedReader(lecture);
         String ligne;
 
